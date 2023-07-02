@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hynee Chuyên buôn bán quần áo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <section class="container-md">
+        <header id="header">
+            <div class="navbar navbar-expand-md">
+                <div class="container-fluid px-3 px-md-0">
+                    <button class="navbar-toggler border-0" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasMenu">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="offcanvas offcanvas-md offcanvas-start " tabindex="-1" id="offcanvasMenu">
+                        <div class="offcanvas-header">
+                            <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                            <img src="Logo.png" alt="hình ảnh" width="120" height="50">
+                        </div>
+                        <div class="d-flex flex-column flex-md-row justify-content-md-between h-100">
+                            <ul class="nav flex-column flex-md-row menu-nav">
+                                <li class="nav-item align-self-center position-relative">
+                                    <a class="nav-link fw-medium text-uppercase" href="#">Nam</a>
+                                    <div class="position-absolute start-0 d-none border border-1 shadow-sm"
+                                        style="width: 1296px;">
+                                        <div class="row row-cols-6">
+                                            <div class="col">
+                                                <div class="list-group p-3">
+                                                    <div href="#" class="list-group-item border-0">
+                                                        <a href="#"
+                                                            class="text-decoration-none link-body-emphasis fw-bold">Áo</a>
+                                                    </div>
+                                                    <div href="#" class="list-group-item border-0">
+                                                        <a href="#" class="text-decoration-none link-body-emphasis">
+                                                            Áo thun
+                                                        </a>
+                                                    </div>
+                                                    <div href="#" class="list-group-item border-0">
+                                                        <a href="#" class="text-decoration-none link-body-emphasis">
+                                                            Áo polo
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="nav-item align-self-center position-relative">
+                                    <a class="nav-link fw-medium text-uppercase" href="#">Nữ</a>
+                                    <div class="position-absolute start-0 d-none border border-1 shadow-sm"
+                                        style="width: 1296px;transform:translate(calc(-66.2px * 1),0);">
+                                        <div class="row row-cols-6">
+                                            <div class="col">
+                                                <div class="list-group p-3">
+                                                    <div href="#" class="list-group-item border-0">
+                                                        <a href="#"
+                                                            class="text-decoration-none link-body-emphasis fw-bold">Váy</a>
+                                                    </div>
+                                                    <div href="#" class="list-group-item border-0">
+                                                        <a href="#" class="text-decoration-none link-body-emphasis">
+                                                            Váy thun
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="nav-item align-self-center">
+                                    <a class="nav-link fw-medium text-uppercase" href="#">Trẻ em</a>
+                                </li>
+                                <li class="nav-item align-self-center">
+                                    <a class="nav-link fw-medium text-uppercase" href="#">Về chúng tôi</a>
+                                </li>
+                            </ul>
+                            <a class="navbar-brand d-none d-md-block" href="#">
+                                <img src="Logo.png" width="120" height="50" alt="hình ảnh">
+                            </a>
+                            <div class="align-self-center d-flex mt-auto mt-md-0 column-gap-3">
+                                <form class="d-flex form-search mb-3 mb-md-0">
+                                    <div class="position-relative">
+                                        <button class="btn position-absolute"><i class="bi-search"></i></button>
+                                        <input class="form-control shadow-none" type="search"
+                                            placeholder="Tìm kiếm sản phẩm">
+                                    </div>
+                                </form>
+                                <div class="column-gap-2 d-none d-md-flex">
+                                    <a href=""><i class="bi bi-person"></i></a>
+                                    <a data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart">
+                                        <i class="bi bi-cart position-relative">
+                                            <span style="font-size: 8px; transform: translate(-50%,10%);"
+                                                class="position-absolute z-1 badge rounded-pill bg-danger ">
+                                                99+
+                                            </span>
+                                        </i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <a class="d-md-none d-block" href="#">
+                        <img src="Logo.png" width="120" height="50" alt="hình ảnh">
+                    </a>
+                    <a class="d-block d-md-none" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart">
+                        <i class="bi bi-cart position-relative">
+                            <span style="font-size: 8px; transform: translate(-50%,10%);"
+                                class="position-absolute z-1 badge rounded-pill bg-danger ">
+                                99+
+                            </span>
+                        </i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- OffcanvasCart -->
+            <div class="offcanvas offcanvas-end" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1"
+                id="offcanvasCart">
+                <div class="offcanvas-header">
+                    <h5 class="d-flex column-gap-2">
+                        <span>Giỏ Hàng</span>
+                        <span class="badge text-bg-dark rounded-circle ">3</span>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+                </div>
+                <div class="offcanvas-body d-flex flex-column">
+                    <div class="overflow-auto " style="height: 500px;">
+                        <div class="card border-0">
+                            <div class="row mx-0">
+                                <div class="col-4">
+                                    <img src="https://pubcdn.ivymoda.com/files/product/thumab/400/2023/06/09/e7f1cbfa4ce0b68d4035ab6751412cc6.JPG"
+                                        class="img-fluid p-3" alt="hình ảnh">
+                                </div>
+                                <div class="col-8 px-0">
+                                    <div class="card-body px-0 d-flex flex-column gap-2">
+                                        <span>Áo kiểu lệch vai chiết eo</span>
+                                        <span>Size: L</span>
+                                        <div class="d-flex">
+                                            <div class="input-group  align-items-center">
+                                                <input type="button" value="-"
+                                                    class="button-minus border rounded-circle icon-shape icon-sm mx-1 "
+                                                    data-field="quantity">
+                                                <input type="number" step="1" min="0" value="1" name="quantity"
+                                                    class="quantity-field border-0 text-center w-25" required>
+                                                <input type="button" value="+"
+                                                    class="button-plus border rounded-circle icon-shape icon-sm "
+                                                    data-field="quantity">
+                                            </div>
+                                            <span class="fw-bold text-danger align-self-center">850.000đ</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-auto d-flex flex-column">
+                        <div class="d-flex column-gap-2 justify-content-end">
+                            <span>Tổng cộng:</span>
+                            <h5 class="fw-bold">850.000đ</h5>
+                        </div>
+                        <button class="btn btn-dark p-3">Xem giỏ hàng</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </section>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+        crossorigin="anonymous"></script>
+    <script>
+        function incrementValue(e) {
+            e.preventDefault();
+            var fieldName = $(e.target).data('field');
+            var parent = $(e.target).closest('div');
+            var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
+
+            if (!isNaN(currentVal)) {
+                parent.find('input[name=' + fieldName + ']').val(currentVal + 1);
+            } else {
+                parent.find('input[name=' + fieldName + ']').val(0);
+            }
+        }
+
+        function decrementValue(e) {
+            e.preventDefault();
+            var fieldName = $(e.target).data('field');
+            var parent = $(e.target).closest('div');
+            var currentVal = parseInt(parent.find('input[name=' + fieldName + ']').val(), 10);
+
+            if (!isNaN(currentVal) && currentVal > 0) {
+                parent.find('input[name=' + fieldName + ']').val(currentVal - 1);
+            } else {
+                parent.find('input[name=' + fieldName + ']').val(0);
+            }
+        }
+
+        $('.input-group').on('click', '.button-plus', function (e) {
+            incrementValue(e);
+        });
+
+        $('.input-group').on('click', '.button-minus', function (e) {
+            decrementValue(e);
+        });
+    </script>
+</body>
+
+</html>
