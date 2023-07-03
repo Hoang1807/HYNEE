@@ -1,0 +1,26 @@
+/* nab */
+.collapse .sale >a{
+    color: red !important;
+}
+
+
+.khung{
+    
+}
+
+.logo{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 850px;
+    height: 30px;
+}
+
+.found {
+    width: 200px !important;
+    
+}
+
+.found .user >i{
+    font-size: 1.5rem;
+}
