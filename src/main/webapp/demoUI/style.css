@@ -48,6 +48,32 @@
   width: 2rem;
   height: 2rem;
 }
-.menu-nav > .nav-item:hover > div {
-  display: block !important;
+
+@media screen and (min-width: 768px) {
+  .menu-nav > .nav-item:hover > div {
+    display: block;
+    transition: 0.2s;
+    visibility: visible;
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+}
+@media screen and (max-width: 768px) {
+  .menu-nav > .nav-item {
+    width: 100%;
+  }
+}
+
+.menu-nav > .nav-item > .menu-item::after {
+  content: "+";
+  position: absolute;
+  left: 90%;
+  font-weight: bolder;
+}
+
+.menu-nav > .nav-item > div {
+  transform: translate(0, 50px);
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.2s;
 }
