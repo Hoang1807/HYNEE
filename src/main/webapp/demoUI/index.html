@@ -105,21 +105,20 @@
                     </button>
                     <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                         <div class="navbar-nav mr-auto py-0">
-                            <a href="index.html" class="nav-item nav-link active">Trang chủ</a>
-                            <a href="shop.html" class="nav-item nav-link">Shop</a>
-                            <a href="detail.html" class="nav-item nav-link">Shop Detail</a>
+                            <a href="index.html" class="nav-item nav-link text-capitalize active">Trang chủ</a>
+                            <a href="shop.html" class="nav-item nav-link text-capitalize">Sản phẩm mới</a>
+                            <a href="detail.html" class="nav-item nav-link text-capitalize">Sản phẩm bán chạy</a>
                             <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Về chúng tôi</a>
                                 <div class="dropdown-menu rounded-0 m-0">
-                                    <a href="cart.html" class="dropdown-item">Shopping Cart</a>
-                                    <a href="checkout.html" class="dropdown-item">Checkout</a>
+                                    <a href="cart.html" class="dropdown-item">Về Hynee</a>
+                                    <a href="checkout.html" class="dropdown-item">Sự kiện</a>
                                 </div>
                             </div>
-                            <a href="contact.html" class="nav-item nav-link">Contact</a>
+                            <a href="contact.html" class="nav-item nav-link">Liên hệ</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0">
                             <a href="login.html" class="nav-item nav-link">Login</a>
-                            <a href="" class="nav-item nav-link">Register</a>
                         </div>
                     </div>
                 </nav>
@@ -153,6 +152,9 @@
 
     <!-- Categories Start -->
     <div class="container-fluid pt-5">
+        <div class="text-center mb-4">
+            <h2 class="section-title px-5"><span class="px-2 text-uppercase">Các mặt hàng thịnh hành</span></h2>
+        </div>
         <div class="row px-xl-5 pb-3">
             <div class="col-lg-4 col-md-6 pb-1">
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 30px;">
@@ -160,7 +162,7 @@
                     <a href="" class="cat-img position-relative overflow-hidden mb-3">
                         <img class="img-fluid" src="img/cat-1.jpg" alt="">
                     </a>
-                    <h5 class="font-weight-semi-bold m-0">Men's dresses</h5>
+                    <h5 class="font-weight-semi-bold m-0">Đồ Nam</h5>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 pb-1">
@@ -169,7 +171,7 @@
                     <a href="" class="cat-img position-relative overflow-hidden mb-3">
                         <img class="img-fluid" src="img/cat-2.jpg" alt="">
                     </a>
-                    <h5 class="font-weight-semi-bold m-0">Women's dresses</h5>
+                    <h5 class="font-weight-semi-bold m-0">Đồ Nữ</h5>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 pb-1">
@@ -178,7 +180,7 @@
                     <a href="" class="cat-img position-relative overflow-hidden mb-3">
                         <img class="img-fluid" src="img/cat-3.jpg" alt="">
                     </a>
-                    <h5 class="font-weight-semi-bold m-0">Baby's dresses</h5>
+                    <h5 class="font-weight-semi-bold m-0">Đồ Trẻ Em</h5>
                 </div>
             </div>
             <div class="col-lg-4 col-md-6 pb-1">
@@ -244,7 +246,7 @@
     <!-- Products Start -->
     <div class="container-fluid pt-5">
         <div class="text-center mb-4">
-            <h2 class="section-title px-5"><span class="px-2">Trandy Products</span></h2>
+            <h2 class="section-title px-5"><span class="px-2 text-capitalize">sản phẩm bán chạy</span></h2>
         </div>
         <div class="row px-xl-5 pb-3">
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
@@ -438,26 +440,38 @@
     <!-- Products Start -->
     <div class="container-fluid pt-5">
         <div class="text-center mb-4">
-            <h2 class="section-title px-5"><span class="px-2">Just Arrived</span></h2>
+            <h2 class="section-title px-5"><span class="px-2 text-capitalize">Hàng mới</span></h2>
         </div>
         <div class="row px-xl-5 pb-3">
             <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
                 <div class="card product-item border-0 mb-4">
-                    <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                        <img class="img-fluid w-100" src="img/product-1.jpg" alt="">
-                    </div>
-                    <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
-                        <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
-                        <div class="d-flex justify-content-center">
-                            <h6>$123.00</h6>
-                            <h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                    <div class="position-relative">
+                        <div
+                            class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
+                            <img class="img-fluid w-100" src="img/product-1.jpg" alt="">
+                        </div>
+                        <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                            <h6 class="text-truncate mb-3">Colorful Stylish Shirt</h6>
+                            <a href="#" class="d-flex justify-content-around text-decoration-none stretched-link">
+                                <div class="d-flex">
+                                    <h6 class="mx-2">$123.00</h6>
+                                    <h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                                    <span class="rounded-pill badge-danger mx-2 px-2"
+                                        style="font-size: 10px; height: 20px; display: grid; align-items: center;">
+                                        50%
+                                    </span>
+                                </div>
+                                <div>
+                                    <button class="btn bg-danger rounded-circle btn-color"
+                                        style="width: 25px;height: 25px;"></button>
+                                </div>
+                            </a>
                         </div>
                     </div>
-                    <div class="card-footer d-flex justify-content-between bg-light border">
-                        <a href="" class="btn btn-sm text-dark p-0"><i class="fas fa-eye text-primary mr-1"></i>View
-                            Detail</a>
-                        <a href="" class="btn btn-sm text-dark p-0"><i
-                                class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                    <div class="card-footer d-flex justify-content-around bg-light border">
+                        <a href="" class="btn text-dark font-weight-bold p-2 btn btn-light flex-fill">Add To
+                            Cart</a>
+                        <a href="" class="btn text-white font-weight-bold p-2 btn btn-danger flex-fill">Buy</a>
                     </div>
                 </div>
             </div>
@@ -650,9 +664,13 @@
                 <a href="" class="text-decoration-none">
                     <img src="img/logo.png" alt="hình ảnh" height="70" width="150">
                 </a>
-                <p>Hynee là một trang web bán hàng, mang đến cho bạn một kho trữ lượng sản phẩm đa dạng và phong phú. Với sự đa dạng về danh mục sản phẩm, chúng tôi tự hào mang đến cho bạn trải nghiệm mua sắm hoàn hảo về quần áo. 
-                    Chúng tôi cam kết mang đến cho bạn những sản phẩm chất lượng và đáng tin cậy từ các thương hiệu hàng đầu. </p>
-                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>Tòa nhà QTSC9 (toà T), đường Tô Ký, phường Tân Chánh Hiệp, Quận 12, TP HCM</p>
+                <p>Hynee là một trang web bán hàng, mang đến cho bạn một kho trữ lượng sản phẩm đa dạng và phong phú.
+                    Với sự đa dạng về danh mục sản phẩm, chúng tôi tự hào mang đến cho bạn trải nghiệm mua sắm hoàn hảo
+                    về quần áo.
+                    Chúng tôi cam kết mang đến cho bạn những sản phẩm chất lượng và đáng tin cậy từ các thương hiệu hàng
+                    đầu. </p>
+                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>Tòa nhà QTSC9 (toà T), đường Tô
+                    Ký, phường Tân Chánh Hiệp, Quận 12, TP HCM</p>
                 <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>hoangnhps23306@fpt.edu.vn</p>
                 <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
             </div>
@@ -661,28 +679,56 @@
                     <div class="col-md-4 mb-5">
                         <h5 class="font-weight-bold text-dark mb-4">Dịch vụ khách hàng</h5>
                         <div class="d-flex flex-column justify-content-start">
-                            <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Chính sách điều khoản</a>
-                            <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>Hướng dẫn mua hàng</a>
-                            <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Chính sách thanh toán</a>
-                            <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>Chính sách đổi trả</a>
-                            <a class="text-dark mb-2" href="checkout.html"><i class="fa fa-angle-right mr-2"></i>Hệ thống cửa hàng</a>
-                            <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Q&A</a>
+                            <div>
+                                <a class="text-dark mb-2" href="index.html">
+                                    <i class="fa fa-angle-right mr-2"></i>Chính sách điều khoản
+                                </a>
+                            </div>
+                            <div>
+                                <a class="text-dark mb-2" href="shop.html">
+                                    <i class="fa fa-angle-right mr-2"></i>Hướng dẫn mua hàng
+                                </a>
+                            </div>
+                            <div>
+                                <a class="text-dark mb-2" href="detail.html">
+                                    <i class="fa fa-angle-right mr-2"></i>Chính sách thanh toán
+                                </a>
+                            </div>
+                            <div>
+                                <a class="text-dark mb-2" href="cart.html">
+                                    <i class="fa fa-angle-right mr-2"></i>Chính sách đổi trả
+                                </a>
+                            </div>
+                            <div>
+                                <a class="text-dark mb-2" href="checkout.html">
+                                    <i class="fa fa-angle-right mr-2"></i>Hệ thống cửa hàng
+                                </a>
+                            </div>
+                            <div>
+                                <a class="text-dark" href="contact.html">
+                                    <i class="fa fa-angle-right mr-2"></i>Q&A
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4 mb-5">
                         <h5 class="font-weight-bold text-dark mb-4">Liên hệ</h5>
                         <div class="d-flex flex-column justify-content-start">
-                            <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Hotline</a>
-                            <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>Our
-                                Shop</a>
-                            <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Shop
-                                Detail</a>
-                            <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>Shopping
-                                Cart</a>
-                            <a class="text-dark mb-2" href="checkout.html"><i
-                                    class="fa fa-angle-right mr-2"></i>Checkout</a>
-                            <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact
-                                Us</a>
+                            <div>
+                                <a class="text-dark mb-2" href="index.html">
+                                    <i class="fa fa-angle-right mr-2"></i>Hotline
+                                </a>
+                            </div>
+                            <div>
+                                <a class="text-dark mb-2" href="shop.html">
+                                    <i class="fa fa-angle-right mr-2"></i>Email
+                                </a>
+                            </div>
+                            <div>
+                                <a class="text-dark mb-2" href="contact.html">
+                                    <i class="fa fa-angle-right mr-2"></i>Liên hệ
+                                </a>
+                            </div>
                         </div>
                     </div>
                     <div class="col-md-4 mb-5">
@@ -706,29 +752,24 @@
             </div>
         </div>
         <div class="row border-top border-light mx-xl-5 py-4">
-            <div class="col-md-6 px-xl-0">
-                <p class="mb-md-0 text-center text-md-left text-dark">
-                    &copy; <a class="text-dark font-weight-semi-bold" href="#">Your Site Name</a>. All Rights Reserved.
-                    Designed
-                    by
-                    <a class="text-dark font-weight-semi-bold" href="https://htmlcodex.com">HTML Codex</a><br>
-                    Distributed By <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
+            <div class="col px-xl-0">
+                <p class="mb-md-0 text-center text-dark">
+                    &copy; <a class="text-dark font-weight-semi-bold" href="#">Hynee</a>. All Rights Reserved.
+                    Designed by
+                    <a class="text-dark font-weight-semi-bold" href="https://htmlcodex.com">Team Hoàng An Bảo</a><br>
+                    Distributed By <a href="https://themewagon.com" target="_blank">FPT Polytechnic</a>
                 </p>
-            </div>
-            <div class="col-md-6 px-xl-0 text-center text-md-right">
-                <img class="img-fluid" src="img/payments.png" alt="">
             </div>
         </div>
     </div>
     <!-- Footer End -->
-
 
     <!-- Back to Top -->
     <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
 
 
     <!-- JavaScript Libraries -->
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
     <script src="lib/easing/easing.min.js"></script>
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>

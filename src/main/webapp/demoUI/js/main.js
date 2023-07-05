@@ -21,15 +21,15 @@
   });
 
   // Back to top button
-  $(window).scroll(function () {
+  $(window).on("scroll", function () {
     if ($(this).scrollTop() > 100) {
       $(".back-to-top").fadeIn("slow");
     } else {
-      $(".back-to-top").fadeOut("slow");
+      // $(".back-to-top").fadeOut("slow");
     }
   });
-  $(".back-to-top").click(function () {
-    $("html, body").animate({ scrollTop: 0 }, 1500, "easeInOutExpo");
+  $(".back-to-top").on("click", function () {
+    $("html, body").animate({ scrollTop: 0 }, 1500, "easeInOutBack");
     return false;
   });
 
@@ -55,29 +55,6 @@
       },
       1200: {
         items: 6,
-      },
-    },
-  });
-
-  // Related carousel
-  $(".related-carousel").owlCarousel({
-    loop: true,
-    margin: 29,
-    nav: false,
-    autoplay: true,
-    smartSpeed: 1000,
-    responsive: {
-      0: {
-        items: 1,
-      },
-      576: {
-        items: 2,
-      },
-      768: {
-        items: 3,
-      },
-      992: {
-        items: 4,
       },
     },
   });
