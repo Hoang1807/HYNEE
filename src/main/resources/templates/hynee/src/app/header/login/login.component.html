@@ -13,7 +13,7 @@
         <div class="tab-content">
 
             <!-- Tab1 -->
-            <form id="login" class="container tab-pane active" [formGroup]="formLogin" (ngSubmit)="onSubmit()">
+            <form id="login" class="container tab-pane active" [formGroup]="formLogin" (ngSubmit)="onSubmitLogin()">
                 <div formGroupName="loginData">
                     <div class="mb-4">
                         <label for="inputPhone" class="sr-only">Số điện thoại</label>
@@ -29,7 +29,7 @@
                             </span>
                         </span>
                     </div>
-                    <label for=" inputPassword" class="sr-only">Mật khẩu</label>
+                    <label for="inputPassword" class="sr-only">Mật khẩu</label>
                     <div class="mb-4">
                         <input type="password" id="inputPassword" class="form-control" placeholder="Mật khẩu"
                             formControlName="inputPassword">
@@ -64,14 +64,32 @@
                             <span *ngIf="formRegister.get('registerData.inputRPhone').errors['required']">
                                 Vui lòng nhập số điện thoại
                             </span>
+                            <span *ngIf="formRegister.get('registerData.inputRPhone').errors['numberIsForbidden']">
+                                Vui lòng nhập số điện thoại đúng định dạng
+                            </span>
                         </span>
                     </div>
-                    <div class="mb-4"><label for="inputPassword" class="sr-only">Password</label>
-                        <input type="password" id="inputPassword" class="form-control" placeholder="Password">
+                    <div class="mb-4">
+                        <label for="inputRPassword" class="sr-only">Mật khẩu</label>
+                        <input type="password" id="inputRPassword" formControlName="inputRPassword" class="form-control" placeholder="Mật khẩu">
+                        <span class="text-danger"
+                            *ngIf="formRegister.get('registerData.inputRPassword').invalid && formRegister.get('registerData.inputRPassword').touched">
+                            <span *ngIf="formRegister.get('registerData.inputRPassword').errors['required']">
+                                Vui lòng nhập Mật khẩu
+                            </span>
+                        </span>
                     </div>
 
-                    <label for="inputPassword" class="sr-only">Password</label>
-                    <input type="password" id="inputPassword" class="form-control" placeholder="Repeat Password">
+                    <div class="mb-4">
+                        <label for="inputRCPassword" class="sr-only">Nhập lại mật khẩu</label>
+                    <input type="password" id="inputRCPassword" class="form-control" placeholder="Nhập lại mật khẩu" formControlName="inputRCPassword">
+                        <span class="text-danger"
+                            *ngIf="formRegister.get('registerData.inputRCPassword').invalid && formRegister.get('registerData.inputRCPassword').touched">
+                            <span *ngIf="formRegister.get('registerData.inputRCPassword').errors['required']">
+                                Vui lòng nhập lại mật khẩu
+                            </span>
+                        </span>
+                    </div>
 
                     <div class="checkbox mb-3">
                         <label>
