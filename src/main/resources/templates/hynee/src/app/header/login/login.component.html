@@ -13,47 +13,74 @@
         <div class="tab-content">
 
             <!-- Tab1 -->
-            <div id="login" class="container tab-pane active">
-                <label for="inputEmail" class="sr-only">Email address</label>
-                <input type="email" id="inputEmail" class="form-control mb-4" placeholder="Email address" required
-                    autofocus>
-                <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" id="inputPassword" class="form-control mb-4" placeholder="Password" required>
-                <div class="one-line mb-2">
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox" checked="checked" value="remember-me"> Remember me
-                        </label>
-
+            <form id="login" class="container tab-pane active" [formGroup]="formLogin" (ngSubmit)="onSubmit()">
+                <div formGroupName="loginData">
+                    <div class="mb-4">
+                        <label for="inputPhone" class="sr-only">Số điện thoại</label>
+                        <input type="text" id="inputPhone" formControlName="inputPhone" class="form-control "
+                            placeholder="Số điện thoại">
+                        <span class="text-danger"
+                            *ngIf="formLogin.get('loginData.inputPhone').invalid && formLogin.get('loginData.inputPhone').touched">
+                            <span *ngIf="formLogin.get('loginData.inputPhone').errors['required']">
+                                Vui lòng nhập số điện thoại
+                            </span>
+                            <span *ngIf="formLogin.get('loginData.inputPhone').errors['numberIsForbidden']">
+                                Vui lòng nhập số điện thoại đúng định dạng
+                            </span>
+                        </span>
                     </div>
-                    <a class="forgot" href="#">Forgot password?</a>
+                    <label for=" inputPassword" class="sr-only">Mật khẩu</label>
+                    <div class="mb-4">
+                        <input type="password" id="inputPassword" class="form-control" placeholder="Mật khẩu"
+                            formControlName="inputPassword">
+                        <span class="text-danger"
+                            *ngIf="formLogin.get('loginData.inputPassword').invalid && formLogin.get('loginData.inputPassword').touched">
+                            <span *ngIf="formLogin.get('loginData.inputPassword').errors['required']">
+                                Vui lòng nhập mật khẩu
+                            </span>
+                        </span>
+                    </div>
+                    <div class="one-line mb-2">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value="remember-me"> Remember me
+                            </label>
+                        </div>
+                        <a class="forgot d-block text-center" href="#">Forgot password?</a>
+                    </div>
                 </div>
-                <div class="checkbox mb-3">
-                    <label>
-                        <input type="checkbox" value="login-as-instructor"> Login as instructor
-                    </label>
-                </div>
-                <button class="btn btn-lg btn-dark btn-block" type="submit">Login</button>
-            </div>
+                <button class="btn btn-lg btn-dark btn-block" type="submit" [disabled]="!formLogin.valid">Login</button>
+            </form>
 
             <!-- Tab2 -->
-            <div id="register" class="container tab-pane fade">
-                <label for="inputEmail" class="sr-only">Email address</label>
-                <input type="email" id="inputEmail" class="form-control mb-4" placeholder="Email address" required
-                    autofocus>
-                <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" id="inputPassword" class="form-control mb-4" placeholder="Password" required>
-                <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" id="inputPassword" class="form-control mb-4" placeholder="Repeat Password"
-                    required>
+            <form id="register" class="container tab-pane fade" [formGroup]="formRegister">
+                <div formGroupName="registerData">
+                    <div class="mb-4">
+                        <label for="inputRPhone" class="sr-only">Số điện thoại</label>
+                        <input type="text" id="inputRPhone" class="form-control" formControlName="inputRPhone"
+                            placeholder="Số điện thoại">
+                        <span class="text-danger"
+                            *ngIf="formRegister.get('registerData.inputRPhone').invalid && formRegister.get('registerData.inputRPhone').touched">
+                            <span *ngIf="formRegister.get('registerData.inputRPhone').errors['required']">
+                                Vui lòng nhập số điện thoại
+                            </span>
+                        </span>
+                    </div>
+                    <div class="mb-4"><label for="inputPassword" class="sr-only">Password</label>
+                        <input type="password" id="inputPassword" class="form-control" placeholder="Password">
+                    </div>
 
-                <div class="checkbox mb-3">
-                    <label>
-                        <input type="checkbox" value="Register-as-instructor"> Register as instructor
-                    </label>
+                    <label for="inputPassword" class="sr-only">Password</label>
+                    <input type="password" id="inputPassword" class="form-control" placeholder="Repeat Password">
+
+                    <div class="checkbox mb-3">
+                        <label>
+                            <input type="checkbox" value="Register-as-instructor"> Register as instructor
+                        </label>
+                    </div>
+                    <button class="btn btn-lg btn-dark btn-block" type="submit">Register</button>
                 </div>
-                <button class="btn btn-lg btn-dark btn-block" type="submit">Register</button>
-            </div>
+            </form>
         </div>
 
     </form>
