@@ -19,12 +19,7 @@ public class UserService {
 	}
 
 	public Users addUser(Users users) {
-		Users user = findById(users.getUserPhone());
-		if (user == null) {
-			return userDAO.save(users);
-		}
-		return null;
-
+		return userDAO.save(users);
 	}
 
 	public Users updateUsers(Users users) {
@@ -36,7 +31,8 @@ public class UserService {
 	}
 
 	public Users findById(String id) {
-		return userDAO.findById(id).orElseThrow(() -> new UserNotFoundException("User by id " + id + " was not found"));
+//		return userDAO.findById(id).orElseThrow(() -> new UserNotFoundException("User by id " + id + " was not found"));
+		return userDAO.findById(id).orElse(null);
 	}
 
 	public void deleteUser(String id) {

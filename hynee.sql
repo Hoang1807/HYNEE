@@ -11,7 +11,7 @@ CREATE TABLE USERS
 	user_role BIT NOT NULL,
 	user_gmail VARCHAR(50),
 	user_image VARCHAR(255),
-	user_createDate Date DEFAULT GETDATE(),
+	user_create_date Date DEFAULT GETDATE(),
 	user_status BIT
 )
 
@@ -52,7 +52,7 @@ CREATE TABLE INVOICE
 	invoice_address NVARCHAR(255) NOT NULL,
 	invoice_date DATETIME DEFAULT GETDATE(),
 	invoice_status BIT DEFAULT 0,
-	invoice_shippingStatus BIT DEFAULT 0,
+	invoice_shipping_status BIT DEFAULT 0,
 	user_phone VARCHAR(10) REFERENCES USERS(user_phone) ON DELETE NO ACTION ON UPDATE CASCADE NOT NULL
 )
 
