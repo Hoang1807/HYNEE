@@ -5,9 +5,9 @@
   width: 620px;
 }
 
-@media only screen and (max-width: 576px) {
+@media only screen and (max-width: 768px) {
   .form-signin {
-    min-width: 360px;
+    width: auto;
     flex-wrap: wrap;
     padding: 50px 0px;
   }
@@ -61,4 +61,19 @@
 
 .nav {
   padding: 0 15px !important;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+input.ng-valid.ng-touched {
+  border: 1px solid green;
+}
+
+.show-pass {
+  position: absolute;
+  left: 95%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }

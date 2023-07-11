@@ -1,0 +1,141 @@
+<div class="container" *ngIf="isShow">
+    <div class="form-signin rounded-sm shadow m-auto">
+        <!-- Nav tabs -->
+        <ul class="nav nav-pills mb-4">
+            <li class="nav-item pill-1">
+                <a class="nav-link active rounded-0" data-toggle="tab" href="#login">Đăng nhập</a>
+            </li>
+            <li class="nav-item pill-2">
+                <a class="nav-link rounded-0" data-toggle="tab" href="#register">Đăng ký</a>
+            </li>
+        </ul>
+        <!-- Tab panes -->
+        <div class="tab-content">
+
+            <!-- Tab1 -->
+            <form id="login" class="container tab-pane active" [formGroup]="formLogin" (ngSubmit)="onSubmitLogin()">
+                <div formGroupName="loginData">
+                    <div class="mb-4">
+                        <input type="text" id="inputPhone" formControlName="inputPhone" class="form-control "
+                            placeholder="Số điện thoại">
+                        <span class="text-danger"
+                            *ngIf="formLogin.get('loginData.inputPhone').invalid && formLogin.get('loginData.inputPhone').touched">
+                            <span *ngIf="formLogin.get('loginData.inputPhone').errors['required']">
+                                Vui lòng nhập số điện thoại
+                            </span>
+                            <span *ngIf="formLogin.get('loginData.inputPhone').errors['numberIsForbidden']">
+                                Vui lòng nhập số điện thoại đúng định dạng
+                            </span>
+                        </span>
+                    </div>
+                    <div class="mb-4">
+                        <div class="position-relative" appShowPass>
+                            <input type="password" id="inputPassword" class="form-control" placeholder="Mật khẩu"
+                                formControlName="inputPassword">
+                            <i class="fas fa-eye-slash show-pass text-dark" style="cursor: pointer;"></i>
+                        </div>
+                        <span class="text-danger"
+                            *ngIf="formLogin.get('loginData.inputPassword').invalid && formLogin.get('loginData.inputPassword').touched">
+                            <span *ngIf="formLogin.get('loginData.inputPassword').errors['required']">
+                                Vui lòng nhập mật khẩu
+                            </span>
+                        </span>
+                    </div>
+                    <div class="one-line mb-2">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" value="remember-me"> Remember me
+                            </label>
+                        </div>
+                        <a class="forgot d-block text-center" href="#">Forgot password?</a>
+                    </div>
+                </div>
+                <button class="btn btn-lg btn-dark btn-block" type="submit" [disabled]="!formLogin.valid">
+                    Đăng nhập</button>
+            </form>
+
+            <!-- Tab2 -->
+            <form id="register" class="container tab-pane fade" [formGroup]="formRegister"
+                (ngSubmit)="onSubmitRegister()">
+                <div formGroupName="registerData">
+                    <div class="mb-4">
+                        <input type="text" id="userPhone" class="form-control" formControlName="userPhone"
+                            placeholder="Số điện thoại">
+                        <span class="text-danger"
+                            *ngIf="formRegister.get('registerData.userPhone').invalid && formRegister.get('registerData.userPhone').touched">
+                            <span *ngIf="formRegister.get('registerData.userPhone').errors['required']">
+                                Vui lòng nhập số điện thoại
+                            </span>
+                            <span *ngIf="formRegister.get('registerData.userPhone').errors['numberIsForbidden']">
+                                Vui lòng nhập số điện thoại đúng định dạng
+                            </span>
+                        </span>
+                    </div>
+
+                    <div class="mb-4">
+                        <input type="text" id="userFullname" class="form-control" formControlName="userFullname"
+                            placeholder="Họ tên">
+                        <span class="text-danger"
+                            *ngIf="formRegister.get('registerData.userFullname').invalid && formRegister.get('registerData.userFullname').touched">
+                            <span *ngIf="formRegister.get('registerData.userFullname').errors['required']">
+                                Vui lòng nhập Họ Tên
+                            </span>
+                        </span>
+                    </div>
+
+                    <div class="mb-4">
+                        <input type="email" id="userGmail" class="form-control" formControlName="userGmail"
+                            placeholder="Gmail">
+                        <span class="text-danger"
+                            *ngIf="formRegister.get('registerData.userGmail').invalid && formRegister.get('registerData.userGmail').touched">
+                            <span *ngIf="formRegister.get('registerData.userGmail').errors['required']">
+                                Vui lòng nhập Gmail
+                            </span>
+                            <span *ngIf="formRegister.get('registerData.userGmail').errors['email']">
+                                Gmail không đúng định dạng
+                            </span>
+                        </span>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="position-relative" appShowPass>
+                            <input type="password" id="userPassword" formControlName="userPassword" class="form-control"
+                                placeholder="Mật khẩu">
+                            <i class="fas fa-eye-slash show-pass text-dark" style="cursor: pointer;"></i>
+                        </div>
+                        <span class="text-danger"
+                            *ngIf="formRegister.get('registerData.userPassword').invalid && formRegister.get('registerData.userPassword').touched">
+                            <span *ngIf="formRegister.get('registerData.userPassword').errors['required']">
+                                Vui lòng nhập Mật khẩu
+                            </span>
+                        </span>
+                    </div>
+
+                    <div class="mb-4">
+                        <div class="position-relative" appShowPass>
+                            <input type="password" id="inputRCPassword" class="form-control"
+                                placeholder="Nhập lại mật khẩu" formControlName="inputRCPassword"
+                                [ngClass]="{'border-danger':formRegister.get('registerData.inputRCPassword').value !== formRegister.get('registerData.userPassword').value}">
+                            <i class="fas fa-eye-slash show-pass text-dark" style="cursor: pointer;"></i>
+                        </div>
+                        <span class="text-danger" *ngIf="formRegister.get('registerData.inputRCPassword').invalid 
+                            && formRegister.get('registerData.inputRCPassword').touched ">
+                            <span *ngIf="formRegister.get('registerData.inputRCPassword').errors['required']">
+                                Vui lòng nhập lại mật khẩu
+                            </span>
+                        </span>
+                        <span class="text-danger"
+                            *ngIf="formRegister.get('registerData.inputRCPassword').value !== formRegister.get('registerData.userPassword').value">
+                            Mật khẩu không trùng khớp
+                        </span>
+                    </div>
+                    <button class="btn btn-lg btn-dark btn-block" type="submit"
+                        [disabled]="formRegister.invalid ||
+                         formRegister.get('registerData.inputRCPassword').value !== formRegister.get('registerData.userPassword').value">
+                        Đăng ký
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

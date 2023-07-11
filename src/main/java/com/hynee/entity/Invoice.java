@@ -31,7 +31,7 @@ public class Invoice {
 	private String invoiceAddress;
 	private Date invoiceDate;
 	private Boolean invoiceStatus;
-	private Boolean invoiceShippingStatus;
+	private Boolean invoice_shipping_status;
 	private Set<InvoiceDetail> invoiceDetails = new HashSet<InvoiceDetail>(0);
 
 	public Invoice() {
@@ -49,7 +49,7 @@ public class Invoice {
 		this.invoiceAddress = invoiceAddress;
 		this.invoiceDate = invoiceDate;
 		this.invoiceStatus = invoiceStatus;
-		this.invoiceShippingStatus = invoiceShippingStatus;
+		this.invoice_shipping_status = invoiceShippingStatus;
 		this.invoiceDetails = invoiceDetails;
 	}
 
@@ -115,13 +115,13 @@ public class Invoice {
 		this.invoiceStatus = invoiceStatus;
 	}
 
-	@Column(name = "invoice_shippingStatus")
+	@Column(name = "invoice_shipping_status")
 	public Boolean getInvoiceShippingStatus() {
-		return this.invoiceShippingStatus;
+		return this.invoice_shipping_status;
 	}
 
 	public void setInvoiceShippingStatus(Boolean invoiceShippingStatus) {
-		this.invoiceShippingStatus = invoiceShippingStatus;
+		this.invoice_shipping_status = invoiceShippingStatus;
 	}
 
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "invoice")
