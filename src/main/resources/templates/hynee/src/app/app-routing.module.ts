@@ -5,6 +5,9 @@ import { AdminComponent } from './admin/admin.component';
 import { HomePageComponent } from './user/home-page/home-page.component';
 import { CartPageComponent } from './user/cart-page/cart-page.component';
 import { ProfileComponent } from './user/profile/profile.component';
+import { AllowAccessAdmin } from './guard/admin-guard';
+import { StatisticComponent } from './admin/statistic/statistic.component';
+import { CategoryComponent } from './admin/category/category.component';
 
 const routes: Routes = [
   {
@@ -28,7 +31,24 @@ const routes: Routes = [
       },
     ],
   },
-  { path: 'admin', component: AdminComponent, title: 'Hynee - Admin' },
+  {
+    path: 'admin',
+    component: AdminComponent,
+    // canActivate: [AllowAccessAdmin],
+    title: 'Hynee - Admin',
+    children: [
+      {
+        path: 'home',
+        component: StatisticComponent,
+        title: 'Hynee - Admin - Thống Kê',
+      },
+      {
+        path: 'category',
+        component: CategoryComponent,
+        title: 'Hynee - Admin - Quản Lý Loại',
+      },
+    ],
+  },
   { path: '**', redirectTo: '/home' },
 ];
 

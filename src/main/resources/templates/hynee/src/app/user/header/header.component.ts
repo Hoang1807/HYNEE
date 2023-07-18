@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/entity/User.interface';
 import { AuthAccountService } from 'src/app/service/AuthAccount.service';
 import { HttpUserService } from 'src/app/service/httpUser.service';
-import { LocalStorageService } from 'src/app/service/local-storage-service.service';
 import { NotificationService } from 'src/app/service/notification.service';
 @Component({
   selector: 'app-header',
@@ -21,12 +20,12 @@ export class HeaderComponent implements OnInit {
   hiddenCarousel: boolean = false;
   hiddenLogin: boolean = false;
   logged: boolean = false;
+  account_activate: User;
   constructor(
     private router: Router,
     private renderer: Renderer2,
     private httpUserService: HttpUserService,
     private authService: AuthAccountService,
-    private localStorageService: LocalStorageService,
     private noti: NotificationService
   ) {}
 
@@ -39,12 +38,13 @@ export class HeaderComponent implements OnInit {
     });
     this.authService.account.subscribe((account) => {
       if (!!account) {
+        this.account_activate = account;
         this.logged = true;
       } else {
         this.logged = false;
       }
     });
-    this.autoLogin();
+    this.authService.autoLogin();
   }
 
   checkUrlShowCarousel() {
@@ -67,28 +67,16 @@ export class HeaderComponent implements OnInit {
       this.hiddenCarousel = false;
     }
   }
-  autoLogin() {
-    const user: User = JSON.parse(
-      this.localStorageService.getItem('user_activate')
-    );
-    if (!!user) {
-      this.logged = true;
-      this.authService.account.next(user);
-    } else {
-      this.logged = false;
-    }
-  }
 
-  logout() {
-    this.httpUserService.isLoading.next(true);
-    this.localStorageService.removeItem('user_activate');
-    this.authService.account.next(null);
+  onLogout() {
+    this.authService.logout();
     this.noti.createNotiSuccess('Đăng xuất thành công', 'Thông báo');
-    this.httpUserService.isLoading.next(false);
   }
 
-  login() {
-    this.localStorageService.removeItem('user_activate');
-    this.authService.account.next(null);
+  navToAdmin() {
+    this.router.navigate(['/admin/home']);
+    setTimeout(() => {
+      location.reload();
+    }, 10);
   }
 }

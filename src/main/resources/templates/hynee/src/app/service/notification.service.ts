@@ -11,7 +11,7 @@ export class NotificationService {
     this.toastrService.success(message, title, {
       closeButton: true,
       tapToDismiss: true,
-      timeOut: 5000,
+      timeOut: 3000,
       progressBar: true,
       disableTimeOut: 'extendedTimeOut',
       progressAnimation: 'decreasing',
@@ -25,7 +25,7 @@ export class NotificationService {
     this.toastrService.error(message, title, {
       closeButton: true,
       tapToDismiss: true,
-      timeOut: 5000,
+      timeOut: 3000,
       progressBar: true,
       disableTimeOut: 'extendedTimeOut',
       progressAnimation: 'decreasing',

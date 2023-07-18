@@ -16,27 +16,27 @@
             <form id="login" class="container tab-pane active" [formGroup]="formLogin" (ngSubmit)="onSubmitLogin()">
                 <div formGroupName="loginData">
                     <div class="mb-4">
-                        <input type="text" id="inputPhone" formControlName="inputPhone" class="form-control "
+                        <input type="text" formControlName="userPhone" class="form-control "
                             placeholder="Số điện thoại">
                         <span class="text-danger"
-                            *ngIf="formLogin.get('loginData.inputPhone').invalid && formLogin.get('loginData.inputPhone').touched">
-                            <span *ngIf="formLogin.get('loginData.inputPhone').errors['required']">
+                            *ngIf="formLogin.get('loginData.userPhone').invalid && formLogin.get('loginData.userPhone').touched">
+                            <span *ngIf="formLogin.get('loginData.userPhone').errors['required']">
                                 Vui lòng nhập số điện thoại
                             </span>
-                            <span *ngIf="formLogin.get('loginData.inputPhone').errors['numberIsForbidden']">
+                            <span *ngIf="formLogin.get('loginData.userPhone').errors['numberIsForbidden']">
                                 Vui lòng nhập số điện thoại đúng định dạng
                             </span>
                         </span>
                     </div>
                     <div class="mb-4">
                         <div class="position-relative" appShowPass>
-                            <input type="password" id="inputPassword" class="form-control" placeholder="Mật khẩu"
-                                formControlName="inputPassword">
+                            <input type="password" class="form-control" placeholder="Mật khẩu"
+                                formControlName="userPassword">
                             <i class="fas fa-eye-slash show-pass text-dark" style="cursor: pointer;"></i>
                         </div>
                         <span class="text-danger"
-                            *ngIf="formLogin.get('loginData.inputPassword').invalid && formLogin.get('loginData.inputPassword').touched">
-                            <span *ngIf="formLogin.get('loginData.inputPassword').errors['required']">
+                            *ngIf="formLogin.get('loginData.userPassword').invalid && formLogin.get('loginData.userPassword').touched">
+                            <span *ngIf="formLogin.get('loginData.userPassword').errors['required']">
                                 Vui lòng nhập mật khẩu
                             </span>
                         </span>
@@ -59,8 +59,7 @@
                 (ngSubmit)="onSubmitRegister()">
                 <div formGroupName="registerData">
                     <div class="mb-4">
-                        <input type="text" id="userPhone" class="form-control" formControlName="userPhone"
-                            placeholder="Số điện thoại">
+                        <input type="text" class="form-control" formControlName="userPhone" placeholder="Số điện thoại">
                         <span class="text-danger"
                             *ngIf="formRegister.get('registerData.userPhone').invalid && formRegister.get('registerData.userPhone').touched">
                             <span *ngIf="formRegister.get('registerData.userPhone').errors['required']">
@@ -73,8 +72,7 @@
                     </div>
 
                     <div class="mb-4">
-                        <input type="text" id="userFullname" class="form-control" formControlName="userFullname"
-                            placeholder="Họ tên">
+                        <input type="text" class="form-control" formControlName="userFullname" placeholder="Họ tên">
                         <span class="text-danger"
                             *ngIf="formRegister.get('registerData.userFullname').invalid && formRegister.get('registerData.userFullname').touched">
                             <span *ngIf="formRegister.get('registerData.userFullname').errors['required']">
@@ -84,8 +82,7 @@
                     </div>
 
                     <div class="mb-4">
-                        <input type="email" id="userGmail" class="form-control" formControlName="userGmail"
-                            placeholder="Gmail">
+                        <input type="email" class="form-control" formControlName="userGmail" placeholder="Gmail">
                         <span class="text-danger"
                             *ngIf="formRegister.get('registerData.userGmail').invalid && formRegister.get('registerData.userGmail').touched">
                             <span *ngIf="formRegister.get('registerData.userGmail').errors['required']">
@@ -99,7 +96,7 @@
 
                     <div class="mb-4">
                         <div class="position-relative" appShowPass>
-                            <input type="password" id="userPassword" formControlName="userPassword" class="form-control"
+                            <input type="password" formControlName="userPassword" class="form-control"
                                 placeholder="Mật khẩu">
                             <i class="fas fa-eye-slash show-pass text-dark" style="cursor: pointer;"></i>
                         </div>
@@ -113,8 +110,8 @@
 
                     <div class="mb-4">
                         <div class="position-relative" appShowPass>
-                            <input type="password" id="inputRCPassword" class="form-control"
-                                placeholder="Nhập lại mật khẩu" formControlName="inputRCPassword"
+                            <input type="password" class="form-control" placeholder="Nhập lại mật khẩu"
+                                formControlName="inputRCPassword"
                                 [ngClass]="{'border-danger':formRegister.get('registerData.inputRCPassword').value !== formRegister.get('registerData.userPassword').value}">
                             <i class="fas fa-eye-slash show-pass text-dark" style="cursor: pointer;"></i>
                         </div>

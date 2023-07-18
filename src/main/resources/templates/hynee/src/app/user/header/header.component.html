@@ -116,7 +116,7 @@
                             href="#" data-toggle="dropdown">
                             <img src="https://vuicuoilen.com/wp-content/uploads/2022/03/ox.jpg" alt="hình ảnh"
                                 class=" rounded-circle mr-2" width="32" height="32">
-                            <strong>Nguyễn hữu Hoàng</strong>
+                            <strong [innerText]="account_activate.userFullname"></strong>
                         </a>
                         <ul class="dropdown-menu shadow text-small position-absolute">
                             <li class="dropdown-item" routerLinkActive="active">
@@ -130,15 +130,22 @@
                                     Lịch sử mua hàng
                                 </a>
                             </li>
+                            <ng-template [ngIf]="account_activate.userRole">
+                                <hr class="dropdown-divider">
+                                <li class="dropdown-item">
+                                    <a class="text-decoration-none nav-link p-0 text-dark text-capitalize"
+                                        (click)="navToAdmin()">
+                                        Admin
+                                    </a>
+                                </li>
+                            </ng-template>
                             <hr class="dropdown-divider">
                             <li class="dropdown-item">
                                 <a class="text-decoration-none nav-link p-0 text-dark text-capitalize"
-                                    [routerLink]="['/admin']">
-                                    Admin
+                                    (click)="onLogout()" style="cursor: pointer;">
+                                    Đăng xuất
                                 </a>
                             </li>
-                            <hr class="dropdown-divider">
-                            <li class="dropdown-item" (click)="logout()">Đăng xuất</li>
                         </ul>
                     </div>
                 </div>
