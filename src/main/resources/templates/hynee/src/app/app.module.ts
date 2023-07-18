@@ -17,7 +17,10 @@ import { LoginComponent } from './user/header/login/login.component';
 import { AdvertisementComponent } from './user/header/advertisement/advertisement.component';
 import { HeaderComponent } from './user/header/header.component';
 import { ProfileComponent } from './user/profile/profile.component';
-
+import { SidebarComponent } from './admin/sidebar/sidebar.component';
+import { StatisticComponent } from './admin/statistic/statistic.component';
+import { TopbarComponent } from './admin/topbar/topbar.component';
+import { CategoryComponent } from './admin/category/category.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,6 +35,10 @@ import { ProfileComponent } from './user/profile/profile.component';
     AdminComponent,
     UserComponent,
     ProfileComponent,
+    SidebarComponent,
+    StatisticComponent,
+    TopbarComponent,
+    CategoryComponent,
   ],
   imports: [
     BrowserModule,

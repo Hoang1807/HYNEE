@@ -31,11 +31,28 @@ public class UserController {
 
 	@GetMapping(value = "/all")
 	public ResponseEntity<List<Users>> getAllUser() {
-		return new ResponseEntity(userService.findAllUsers(),HttpStatus.OK);
+		return new ResponseEntity(userService.findAllUsers(), HttpStatus.OK);
 	}
-	
-//	@GetMapping(value = "/find")
-	
+
+	@PostMapping(value = "/login")
+	public ResponseEntity<Users> getLoginUser(@RequestBody Users users) {
+		Users dataUsers = userService.findById(users.getUserPhone());
+		if (dataUsers != null) {
+			if (securityService.matches(users.getUserPassword(), dataUsers.getUserPassword())
+					|| users.getUserPassword().equals(dataUsers.getUserPassword())) {
+				dataUsers.setFeedbacks(null);
+				dataUsers.setInvoices(null);
+				return new ResponseEntity(dataUsers, HttpStatus.OK);
+			} else {
+				return new ResponseEntity("USER_NOT_EXISTS", HttpStatus.UNAUTHORIZED);
+			}
+		} else {
+			return new ResponseEntity("USER_NOT_EXISTS", HttpStatus.UNAUTHORIZED);
+		}
+	}
+
+//	@GetMapping(value = "/find/{phone}")
+//	public ResponseEntity<Users> addUser(@RequestBody Users users) {}
 	@PostMapping(value = "/add")
 	public ResponseEntity<Users> addUser(@RequestBody Users users) {
 		String passHash = securityService.encodePassword(users.getUserPassword());

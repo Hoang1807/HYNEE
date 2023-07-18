@@ -28,12 +28,12 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.formLogin = new FormGroup({
       loginData: new FormGroup({
-        inputPhone: new FormControl(
+        userPhone: new FormControl(
           null,
           [Validators.required],
           LoginValidators.invalidLogin
         ),
-        inputPassword: new FormControl(null, [Validators.required]),
+        userPassword: new FormControl(null, [Validators.required]),
       }),
     });
 
@@ -57,7 +57,26 @@ export class LoginComponent implements OnInit {
 
   // giải quyết submit của Đăng Nhập
   onSubmitLogin() {
-    console.log(this.formLogin);
+    const formData = this.formLogin.value['loginData'];
+    const user: User = {
+      userPhone: formData.userPhone,
+      userPassword: formData.userPassword,
+    };
+    this.httpUserService.loginUser(user).subscribe(
+      (resp) => {
+        this.httpUserService.eventEmitter.emit(true);
+        this.httpUserService.isLoading.next(false);
+        this.authService.account.next(resp.body);
+        this.localStore.setItem('user_activate', JSON.stringify(resp.body));
+        this.router.navigate(['/home'], { relativeTo: this.route });
+        this.formLogin.reset();
+        this.noti.createNotiSuccess('Đăng nhập thành công', 'Thông báo');
+      },
+      (errorMessage) => {
+        this.httpUserService.isLoading.next(false);
+        this.noti.createNotiError(errorMessage, 'Thông báo');
+      }
+    );
   }
 
   // giải quyết submit của Đăng Ký
