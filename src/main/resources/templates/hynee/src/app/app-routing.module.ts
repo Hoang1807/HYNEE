@@ -8,6 +8,8 @@ import { ProfileComponent } from './user/profile/profile.component';
 import { AllowAccessAdmin } from './guard/admin-guard';
 import { StatisticComponent } from './admin/statistic/statistic.component';
 import { CategoryComponent } from './admin/category/category.component';
+import { DetailComponent } from './admin/detail/detail.component';
+import { ProductComponent } from './admin/product/product.component';
 
 const routes: Routes = [
   {
@@ -34,7 +36,7 @@ const routes: Routes = [
   {
     path: 'admin',
     component: AdminComponent,
-    // canActivate: [AllowAccessAdmin],
+    canActivate: [AllowAccessAdmin],
     title: 'Hynee - Admin',
     children: [
       {
@@ -46,6 +48,16 @@ const routes: Routes = [
         path: 'category',
         component: CategoryComponent,
         title: 'Hynee - Admin - Quản Lý Loại',
+      },
+      {
+        path: 'detail',
+        component: DetailComponent,
+        title: 'Hynee - Admin - Quản Lý Thông Tin Chi Tiết',
+      },
+      {
+        path: 'product',
+        component: ProductComponent,
+        title: 'Hynee - Admin - Quản Lý Sản Phẩm',
       },
     ],
   },

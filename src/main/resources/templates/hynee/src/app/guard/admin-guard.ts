@@ -8,7 +8,7 @@ import { AuthAccountService } from '../service/AuthAccount.service';
 import { inject } from '@angular/core';
 import { User } from '../entity/User.interface';
 import { LocalStorageService } from '../service/local-storage-service.service';
-import { HttpUserService } from '../service/httpUser.service';
+import { HttpUserService } from '../service/http-user.service';
 
 export function AllowAccessAdmin(
   route: ActivatedRouteSnapshot,

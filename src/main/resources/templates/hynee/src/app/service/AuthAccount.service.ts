@@ -4,7 +4,7 @@ import { User } from '../entity/User.interface';
 import { LocalStorageService } from './local-storage-service.service';
 import { NotificationService } from './notification.service';
 import { Router } from '@angular/router';
-import { HttpUserService } from './httpUser.service';
+import { HttpUserService } from './http-user.service';
 
 @Injectable({
   providedIn: 'root',

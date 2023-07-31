@@ -1,8 +1,8 @@
 import { Product } from './Product.interface';
 
 export interface Detail {
-  detailId: string;
+  detailId?: string;
   detailName: string;
   detailValue: string;
-  products: Product[];
+  products?: Product[];
 }

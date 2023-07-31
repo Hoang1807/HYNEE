@@ -6,9 +6,9 @@ import { Image } from './Image.interface';
 import { InvoiceDetail } from './InvoiceDetail.interface';
 
 export interface Product {
-  productId: string;
+  productId?: string;
   category: Category;
-  discount: Discount;
+  discount?: Discount;
   productCode: string;
   productName: string;
   productDescription: string;
@@ -17,8 +17,8 @@ export interface Product {
   productColor: string;
   productPrice: number;
   productStatus: boolean;
-  feedbacks: Feedback[];
-  details: Detail[];
-  images: Image[];
-  invoiceDetails: InvoiceDetail[];
+  feedbacks?: Feedback[];
+  details?: Detail[];
+  images?: Image[];
+  invoiceDetails?: InvoiceDetail[];
 }

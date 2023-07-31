@@ -10,6 +10,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import lombok.ToString;
+
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Nationalized;
 
@@ -18,6 +20,7 @@ import org.hibernate.annotations.Nationalized;
  */
 @Entity
 @Table(name = "DETAIL", schema = "dbo", catalog = "HYNEE")
+@ToString
 public class Detail  {
 
 	private String detailId;

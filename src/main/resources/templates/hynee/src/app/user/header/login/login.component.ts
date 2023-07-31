@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'src/app/entity/User.interface';
 import { AuthAccountService } from 'src/app/service/AuthAccount.service';
-import { HttpUserService } from 'src/app/service/httpUser.service';
+import { HttpUserService } from 'src/app/service/http-user.service';
 import { LocalStorageService } from 'src/app/service/local-storage-service.service';
 import { NotificationService } from 'src/app/service/notification.service';
 import { LoginValidators } from 'src/app/validate/login-validators';
@@ -62,8 +62,8 @@ export class LoginComponent implements OnInit {
       userPhone: formData.userPhone,
       userPassword: formData.userPassword,
     };
-    this.httpUserService.loginUser(user).subscribe(
-      (resp) => {
+    this.httpUserService.loginUser(user).subscribe({
+      next: (resp) => {
         this.httpUserService.eventEmitter.emit(true);
         this.httpUserService.isLoading.next(false);
         this.authService.account.next(resp.body);
@@ -72,11 +72,11 @@ export class LoginComponent implements OnInit {
         this.formLogin.reset();
         this.noti.createNotiSuccess('Đăng nhập thành công', 'Thông báo');
       },
-      (errorMessage) => {
+      error: (errorMessage) => {
         this.httpUserService.isLoading.next(false);
         this.noti.createNotiError(errorMessage, 'Thông báo');
-      }
-    );
+      },
+    });
   }
 
   // giải quyết submit của Đăng Ký
@@ -92,8 +92,8 @@ export class LoginComponent implements OnInit {
       userCreateDate: new Date(),
       userRole: false,
     };
-    this.httpUserService.addUser(user).subscribe(
-      (resp) => {
+    this.httpUserService.addUser(user).subscribe({
+      next: (resp) => {
         this.httpUserService.eventEmitter.emit(true);
         this.httpUserService.isLoading.next(false);
         this.authService.account.next(resp.body);
@@ -102,10 +102,10 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/home'], { relativeTo: this.route });
         this.formRegister.reset();
       },
-      (errorMessage) => {
+      error: (errorMessage) => {
         this.httpUserService.isLoading.next(false);
         this.noti.createNotiError(errorMessage, 'Thông báo');
-      }
-    );
+      },
+    });
   }
 }
