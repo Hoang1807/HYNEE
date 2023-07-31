@@ -8,7 +8,7 @@ import {
 import { Router } from '@angular/router';
 import { User } from 'src/app/entity/User.interface';
 import { AuthAccountService } from 'src/app/service/AuthAccount.service';
-import { HttpUserService } from 'src/app/service/httpUser.service';
+import { HttpUserService } from 'src/app/service/http-user.service';
 import { NotificationService } from 'src/app/service/notification.service';
 @Component({
   selector: 'app-header',

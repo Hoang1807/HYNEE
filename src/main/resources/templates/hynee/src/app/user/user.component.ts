@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { HttpUserService } from '../service/httpUser.service';
+import { HttpUserService } from '../service/http-user.service';
 
 @Component({
   selector: 'app-user',

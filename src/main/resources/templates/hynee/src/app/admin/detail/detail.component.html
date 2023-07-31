@@ -2,11 +2,11 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Quản Lý Loại Sản Phẩm</h1>
+        <h1 class="h3 mb-0 text-gray-800">Quản Lý Chi Tiết Sản Phẩm</h1>
         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"
-            data-target="#form" id="btnAddCate" (click)="onRefreshForm()">
+            data-target="#form" id="btnAddDetail" (click)="onRefreshForm()">
             <i class="fas fa-plus fa-sm text-white-50"></i>
-            Thêm Loại</a>
+            Thêm Chi Tiết</a>
 
         <div class="modal fade" id="form" tabindex="-1">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -17,31 +17,32 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <form method="post" [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
-                        <div class="modal-body" formGroupName="cateData">
+                    <form method="post" [formGroup]="detailForm" (ngSubmit)="onSubmit()">
+                        <div class="modal-body" formGroupName="detailData">
+                            <input type="hidden" formControlName="detailId">
                             <div class="form-group">
-                                <input type="text" class="form-control" formControlName="categoryId"
-                                    placeholder="Mã loại">
+                                <input type="text" class="form-control" formControlName="detailName"
+                                    placeholder="Tiêu dề">
                                 <span class="text-danger"
-                                    *ngIf="categoryForm.get('cateData.categoryId').invalid && categoryForm.get('cateData.categoryId').touched">
-                                    <span *ngIf="categoryForm.get('cateData.categoryId').errors['required']">
-                                        Vui lòng nhập Mã Loại
+                                    *ngIf="detailForm.get('detailData.detailName').invalid && detailForm.get('detailData.detailName').touched">
+                                    <span *ngIf="detailForm.get('detailData.detailName').errors['required']">
+                                        Vui lòng nhập Tiêu Đề
                                     </span>
                                 </span>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" formControlName="categoryName"
-                                    placeholder="Tên Loại">
+                                <input type="text" class="form-control" formControlName="detailValue"
+                                    placeholder="Nội Dung">
                                 <span class="text-danger"
-                                    *ngIf="categoryForm.get('cateData.categoryName').invalid && categoryForm.get('cateData.categoryName').touched">
-                                    <span *ngIf="categoryForm.get('cateData.categoryName').errors['required']">
-                                        Vui lòng nhập Tên Loại
+                                    *ngIf="detailForm.get('detailData.detailValue').invalid && detailForm.get('detailData.detailValue').touched">
+                                    <span *ngIf="detailForm.get('detailData.detailValue').errors['required']">
+                                        Vui lòng nhập Nội Dung
                                     </span>
                                 </span>
                             </div>
                         </div>
                         <div class="modal-footer border-top-0 d-flex justify-content-end">
-                            <button type="submit" class="btn btn-success" [disabled]="categoryForm.invalid">Lưu</button>
+                            <button type="submit" class="btn btn-success" [disabled]="detailForm.invalid">Lưu</button>
                         </div>
                     </form>
                 </div>
@@ -50,7 +51,7 @@
     </div>
     <div class="row">
         <div class="m-auto col-xl-8">
-            <app-category-item (DataCate)="onDataCate($event)"></app-category-item>
+            <app-detail-item (DataDetail)="onDataCate($event)"></app-detail-item>
         </div>
     </div>
 </div>

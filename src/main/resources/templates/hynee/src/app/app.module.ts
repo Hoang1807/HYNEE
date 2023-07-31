@@ -21,6 +21,13 @@ import { SidebarComponent } from './admin/sidebar/sidebar.component';
 import { StatisticComponent } from './admin/statistic/statistic.component';
 import { TopbarComponent } from './admin/topbar/topbar.component';
 import { CategoryComponent } from './admin/category/category.component';
+import { DataTablesModule } from 'angular-datatables';
+import { CategoryItemComponent } from './admin/category/category-item/category-item.component';
+import { DetailComponent } from './admin/detail/detail.component';
+import { DetailItemComponent } from './admin/detail/detail-item/detail-item.component';
+import { ProductComponent } from './admin/product/product.component';
+import { ProductItemComponent } from './admin/product/product-item/product-item.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,6 +46,11 @@ import { CategoryComponent } from './admin/category/category.component';
     StatisticComponent,
     TopbarComponent,
     CategoryComponent,
+    CategoryItemComponent,
+    DetailComponent,
+    DetailItemComponent,
+    ProductComponent,
+    ProductItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +58,7 @@ import { CategoryComponent } from './admin/category/category.component';
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    DataTablesModule,
     ToastrModule.forRoot({
       preventDuplicates: true,
       resetTimeoutOnDuplicate: true,

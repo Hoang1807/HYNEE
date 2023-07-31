@@ -1,0 +1,170 @@
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Quản Lý Chi Tiết Sản Phẩm</h1>
+        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"
+            data-target="#form" id="btnAddDetail" (click)="onRefreshForm()">
+            <i class="fas fa-plus fa-sm text-white-50"></i>
+            Thêm Sản Phẩm</a>
+
+        <div class="modal fade" id="form" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header border-bottom-0">
+                        <h5 class="modal-title" id="exampleModalLabel" [innerText]="title"></h5>
+                        <button type="button" class="close" data-dismiss="modal" #close>
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form method="post" [formGroup]="productForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+                        <div class="modal-body" formGroupName="productData">
+                            <input type="hidden" formControlName="productId">
+                            <div class="form-group">
+                                <input type="text" class="form-control" formControlName="productCode"
+                                    placeholder="Mã sản phẩm">
+                                <span class="text-danger"
+                                    *ngIf="productForm.get('productData.productCode').invalid && productForm.get('productData.productCode').touched">
+                                    <span *ngIf="productForm.get('productData.productCode').errors['required']">
+                                        Vui lòng nhập Mã sản phẩm
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" formControlName="productName"
+                                    placeholder="Tên sản phẩm">
+                                <span class="text-danger"
+                                    *ngIf="productForm.get('productData.productName').invalid && productForm.get('productData.productName').touched">
+                                    <span *ngIf="productForm.get('productData.productName').errors['required']">
+                                        Vui lòng nhập Tên sản phẩm
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <input type="number" class="form-control" formControlName="productQuantity"
+                                            placeholder="Số lượng">
+                                        <span class="text-danger"
+                                            *ngIf="productForm.get('productData.productQuantity').invalid && productForm.get('productData.productQuantity').touched">
+                                            <span
+                                                *ngIf="productForm.get('productData.productQuantity').errors['required']">
+                                                Vui lòng nhập số lượng
+                                            </span>
+                                            <span *ngIf="productForm.get('productData.productQuantity').errors['min']">
+                                                Vui lòng nhập lớn hơn 0
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <select class="custom-select" formControlName="productSize">
+                                        <option value="">Chọn Size</option>
+                                        <option value="S">S</option>
+                                        <option value="M">M</option>
+                                        <option value="L">L</option>
+                                        <option value="XL">XL</option>
+                                        <option value="XXL">XXL</option>
+                                    </select>
+                                    <span class="text-danger"
+                                        *ngIf="productForm.get('productData.productSize').invalid && productForm.get('productData.productSize').touched">
+                                        <span *ngIf="productForm.get('productData.productSize').errors['required']">
+                                            Vui lòng chọn Size
+                                        </span>
+                                    </span>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <input type="color" class="form-control" formControlName="productColor"
+                                            placeholder="Mã màu">
+                                        <span class="text-danger"
+                                            *ngIf="productForm.get('productData.productColor').invalid && productForm.get('productData.productColor').touched">
+                                            <span
+                                                *ngIf="productForm.get('productData.productColor').errors['required']">
+                                                Vui lòng nhập chọn màu
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="number" class="form-control" formControlName="productPrice"
+                                    placeholder="Giá sản phẩm">
+                                <span class="text-danger"
+                                    *ngIf="productForm.get('productData.productPrice').invalid && productForm.get('productData.productPrice').touched">
+                                    <span *ngIf="productForm.get('productData.productPrice').errors['required']">
+                                        Vui lòng nhập Giá sản phẩm
+                                    </span>
+                                    <span *ngIf="productForm.get('productData.productPrice').errors['min']">
+                                        Vui lòng nhập Giá lớn hơn 0
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="active" value="true"
+                                        formControlName="productStatus">
+                                    <label class="form-check-label" for="active">Còn kinh doanh</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="noactive" value="false"
+                                        formControlName="productStatus">
+                                    <label class="form-check-label" for="noactive">Ngừng kinh doanh</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="file" class="form-control" formControlName="images" multiple
+                                    (change)="onFileChange($event)" accept="image/png, image/gif, image/jpeg">
+                                <span class="text-danger"
+                                    *ngIf="productForm.get('productData.images').invalid && productForm.get('productData.images').touched">
+                                    <span *ngIf="productForm.get('productData.images').errors['required']">
+                                        Vui lòng chọn ảnh
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <select class="custom-select" formControlName="category" multiple>
+                                    <option value="">Chọn Loại</option>
+                                    <option *ngFor="let item of listCate" [value]="item">
+                                        {{item.categoryName}}
+                                    </option>
+                                </select>
+                                <span class="text-danger"
+                                    *ngIf="productForm.get('productData.category').invalid && productForm.get('productData.category').touched">
+                                    <span *ngIf="productForm.get('productData.category').errors['required']">
+                                        Vui lòng chọn Loại
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <select class="custom-select" formControlName="detail" multiple>
+                                    <option *ngFor="let item of listDetail" [value]="item">
+                                        {{item.detailName+':' +item.detailValue}}
+                                    </option>
+                                </select>
+                                <span class="text-danger"
+                                    *ngIf="productForm.get('productData.detail').invalid && productForm.get('productData.detail').touched">
+                                    <span *ngIf="productForm.get('productData.detail').errors['required']">
+                                        Vui lòng chọn Loại
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <textarea placeholder="Mô tả" class="form-control"
+                                    formControlName="productzDescription"></textarea>
+                            </div>
+                        </div>
+                        <div class="modal-footer border-top-0 d-flex justify-content-end">
+                            <button type="submit" class="btn btn-success" [disabled]="productForm.invalid">Lưu</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="m-auto col-xl-8">
+            <!-- <app-detail-item (DataDetail)="onDataCate($event)"></app-detail-item> -->
+        </div>
+    </div>
+</div>

@@ -18,7 +18,7 @@ import com.hynee.service.UserService;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class UserController {
 	private final UserService userService;
 	private final SecurityService securityService;

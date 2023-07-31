@@ -7,7 +7,7 @@ import { Subject, catchError, throwError, exhaustMap, take } from 'rxjs';
   providedIn: 'root',
 })
 export class HttpUserService {
-  isLoading = new Subject();
+  isLoading = new Subject<boolean>();
   eventEmitter = new EventEmitter<boolean>();
   constructor(private http: HttpClient) {}
 
@@ -20,16 +20,15 @@ export class HttpUserService {
       .pipe(
         take(1),
         catchError((error) => {
-          console.log(error);
           let errorMessage = 'Đã có lỗi xảy ra! Lỗi không được xác định';
           if (!error.error) {
-            return throwError(errorMessage);
+            return throwError(() => errorMessage);
           }
           switch (error.error) {
             case 'USER_EXISTS':
               errorMessage = 'Số điện thoại này đã được đăng ký';
           }
-          return throwError(errorMessage);
+          return throwError(() => errorMessage);
         })
       );
   }
@@ -58,5 +57,4 @@ export class HttpUserService {
   }
   getUsersById(user: User) {}
   updateUser() {}
-  deleteUser() {}
 }
