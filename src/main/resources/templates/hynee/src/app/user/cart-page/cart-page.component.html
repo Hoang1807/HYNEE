@@ -1,1 +1,79 @@
-<p>cart-page works!</p>
+<div class="container-fluid">
+    <div class="row px-xl-5">
+        <div class="col-12">
+            <div class="mb-2">
+                <h4 class="font-weight-semi-bold mb-4">Thông Tin</h4>
+                <div class="row">
+                    <div class="col-md-6 form-group">
+                        <label>Địa chỉ: </label>
+                        <input class="form-control" type="text" #address>
+                    </div>
+                    <div class="col-md-6 form-group">
+                        <label>Ghi chú: </label>
+                        <textarea class="form-control" type="text" #note></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8 table-responsive mb-5">
+            <table class="table table-bordered text-center mb-0">
+                <thead class="bg-secondary text-dark">
+                    <tr>
+                        <th>Ảnh</th>
+                        <th>Giá</th>
+                        <th>Số lượng</th>
+                        <th>Tổng cộng</th>
+                        <th>Xóa</th>
+                    </tr>
+                </thead>
+                <tbody class="align-middle">
+                    <tr *ngFor="let item of products">
+                        <td class="align-middle"><img [src]="item.image.imageId" style="width: 50px;"></td>
+                        <td class="align-middle" [innerText]="item.productPrice | currency:'VND'"></td>
+                        <td class="align-middle">
+                            <div class="input-group quantity mx-auto" style="width: 100px;">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-primary btn-minus" (click)="onDecreaseQuantity(item)">
+                                        <i class="fa fa-minus"></i>
+                                    </button>
+                                </div>
+                                <input type="text" class="form-control form-control-sm bg-secondary text-center"
+                                    [value]="item.quantity" (change)="onChangeQuantity(item,$event)">
+                                <div class="input-group-btn">
+                                    <button class="btn btn-sm btn-primary btn-plus" (click)="onIncreaseQuantity(item)">
+                                        <i class="fa fa-plus"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="align-middle" [innerText]="item.quantity*item.productPrice | currency:'VND'"></td>
+                        <td class="align-middle"><button class="btn btn-sm btn-primary"
+                                (click)="onDeleteProduct(item)"><i class="fa fa-times"></i></button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-lg-4">
+            <div class="card border-secondary mb-5">
+                <div class="card-header bg-secondary border-0">
+                    <h4 class="font-weight-semi-bold m-0">Tính Tiền</h4>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex justify-content-between mb-3 pt-1" *ngFor="let item of products">
+                        <h6 class="font-weight-medium" [innerText]="item.productName"></h6>
+                        <h6 class="font-weight-medium" [innerText]="item.productPrice * item.quantity|currency:'VND'">
+                        </h6>
+                    </div>
+                </div>
+                <div class="card-footer border-secondary bg-transparent">
+                    <div class="d-flex justify-content-between mt-2">
+                        <h5 class="font-weight-bold">Tổng Cộng</h5>
+                        <h5 class="font-weight-bold" [innerText]="sum | currency:'VND'"></h5>
+                    </div>
+                    <button class="btn btn-block btn-primary my-3 py-3" (click)="onPay(address,note)">Thanh
+                        Toán</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,90 @@
+<div class="row pb-3">
+    <div class="col-12 pb-1">
+        <div class="d-flex align-items-center justify-content-between mb-4">
+            <form action="">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Search by name">
+                    <div class="input-group-append">
+                        <span class="input-group-text bg-transparent text-primary">
+                            <i class="fa fa-search"></i>
+                        </span>
+                    </div>
+                </div>
+            </form>
+            <div class="dropdown ml-4">
+                <button class="btn border dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Sort by
+                </button>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" routerLink="./" [queryParams]="{sort:true}"
+                        (click)="onCheckQueryParams(true)">Giá Tăng
+                        dần</a>
+                    <a class=" dropdown-item" routerLink="./" [queryParams]="{sort:false}"
+                        (click)="onCheckQueryParams(true)">Giá Giảm dần</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4 col-md-6 col-sm-12 pb-1" *ngFor="let item of listProduct; let i = index">
+        <div class="card product-item border-0 mb-4">
+            <div class="position-relative">
+                <div
+                    class="card-header product-img position-relative overflow-hidden bg-transparent border p-0 text-center">
+                    <img class="img-fluid w-75" [src]="item.image.imageId" alt="">
+                </div>
+                <div class="card-body border-left border-right text-center p-0 pt-4 pb-3">
+                    <h6 class="text-truncate mb-3" [innerText]="item.productName"></h6>
+                    <a [routerLink]="['/product-detail',item.productId]"
+                        class="d-flex justify-content-around stretched-link">
+                        <div class="d-flex">
+                            <h6 class="mx-2 text-decoration-none border-none"
+                                [innerText]="item.productPrice | currency:'VND'">
+                            </h6>
+                            <!-- <h6 class="text-muted ml-2"><del>$123.00</del></h6>
+                    <span class="rounded-pill badge-danger mx-2 px-2"
+                        style="font-size: 10px; height: 20px; display: grid; align-items: center;">
+                        50%
+                    </span> -->
+                        </div>
+                        <div>
+                            <button class="btn rounded-circle btn-color" style="width: 25px;height: 25px"
+                                [ngStyle]="{'background-color': item.productColor}"></button>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="card-footer d-flex justify-content-around bg-light border">
+                <a class="btn text-dark font-weight-bold p-2 btn btn-light flex-fill"
+                    (click)="addToCart(item.productId)">
+                    Thêm vào giỏ hàng</a>
+                <a class="btn text-white font-weight-bold p-2 btn btn-danger flex-fill" (click)="onBuyNow(item)">Mua
+                    ngay</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 pb-1">
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center mb-3">
+                <li class="page-item">
+                    <a class="page-link" [routerLink]="['../'+0]" [queryParams]="{sort: checkParams?sort:''}">
+                        <span aria-hidden=" true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                </li>
+                <li class="page-item" *ngFor="let item of [].constructor(numberPage);let i = index"
+                    routerLinkActive="active">
+                    <a class="page-link" [routerLink]="['../'+i]" [queryParams]="{sort: checkParams?sort:''}"
+                        [queryParams]="" [innerText]="i+1"></a>
+                </li>
+                <li class="page-item">
+                    <a class="page-link" [routerLink]="['../'+(numberPage-1)]"
+                        [queryParams]="{sort: checkParams?sort:''}">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</div>

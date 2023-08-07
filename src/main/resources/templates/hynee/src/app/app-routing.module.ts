@@ -10,6 +10,9 @@ import { StatisticComponent } from './admin/statistic/statistic.component';
 import { CategoryComponent } from './admin/category/category.component';
 import { DetailComponent } from './admin/detail/detail.component';
 import { ProductComponent } from './admin/product/product.component';
+import { ProductNewComponent } from './user/product-new/product-new.component';
+import { ProductListComponent } from './user/product-new/product-list/product-list.component';
+import { ProductDetailComponent } from './user/product-detail/product-detail.component';
 
 const routes: Routes = [
   {
@@ -22,14 +25,31 @@ const routes: Routes = [
         title: 'Hynee - Trang Chủ',
       },
       {
-        path: 'product-new',
-        component: CartPageComponent,
-        title: 'Hynee - Sản Phẩm Bán Chạy',
+        path: 'product-new/:page',
+        component: ProductNewComponent,
+        title: 'Hynee - Sản Phẩm Mới',
+        children: [
+          {
+            path: ':p',
+            component: ProductListComponent,
+            title: 'Server',
+          },
+        ],
       },
       {
         path: 'profile',
         component: ProfileComponent,
         title: 'Hynee - Trang Cá Nhân',
+      },
+      {
+        path: 'cart',
+        component: CartPageComponent,
+        title: 'Hynee - Giỏ Hàng',
+      },
+      {
+        path: 'product-detail/:id',
+        component: ProductDetailComponent,
+        title: 'Hynee - Sản Phẩm Chi Tiết',
       },
     ],
   },

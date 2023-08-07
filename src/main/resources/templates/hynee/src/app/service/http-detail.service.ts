@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, catchError, take, throwError } from 'rxjs';
 import { Detail } from '../entity/Detail.interface';
+import { DetailProduct } from '../entity/DetailProduct.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -62,5 +63,16 @@ export class HttpDetailService {
           return throwError(() => errorMessage);
         })
       );
+  }
+
+  addDetailProduct(detailProData: DetailProduct[]) {
+    console.log(detailProData);
+    return this.http.post(
+      'http://localhost:8080/admin/detailProduct/add',
+      detailProData,
+      {
+        observe: 'response',
+      }
+    );
   }
 }

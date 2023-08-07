@@ -17,8 +17,10 @@ export interface Product {
   productColor: string;
   productPrice: number;
   productStatus: boolean;
+  quantity?: number;
   feedbacks?: Feedback[];
   details?: Detail[];
   images?: Image[];
+  image?: Image;
   invoiceDetails?: InvoiceDetail[];
 }

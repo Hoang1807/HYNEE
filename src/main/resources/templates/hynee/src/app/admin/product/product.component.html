@@ -4,7 +4,7 @@
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Quản Lý Chi Tiết Sản Phẩm</h1>
         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"
-            data-target="#form" id="btnAddDetail" (click)="onRefreshForm()">
+            data-target="#form" id="btnAddProduct" (click)="onRefreshForm()">
             <i class="fas fa-plus fa-sm text-white-50"></i>
             Thêm Sản Phẩm</a>
 
@@ -113,19 +113,16 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <input type="file" class="form-control" formControlName="images" multiple
-                                    (change)="onFileChange($event)" accept="image/png, image/gif, image/jpeg">
-                                <span class="text-danger"
-                                    *ngIf="productForm.get('productData.images').invalid && productForm.get('productData.images').touched">
-                                    <span *ngIf="productForm.get('productData.images').errors['required']">
-                                        Vui lòng chọn ảnh
-                                    </span>
+                                <input type="file" class="form-control" multiple (change)="onFileChange($event)"
+                                    accept="image/png, image/gif, image/jpeg">
+                                <span class="text-danger" *ngIf="files.length == 0">
+                                    Vui lòng chọn ảnh
                                 </span>
                             </div>
                             <div class="form-group">
-                                <select class="custom-select" formControlName="category" multiple>
+                                <select class="custom-select" formControlName="category">
                                     <option value="">Chọn Loại</option>
-                                    <option *ngFor="let item of listCate" [value]="item">
+                                    <option *ngFor="let item of listCate" [ngValue]="item">
                                         {{item.categoryName}}
                                     </option>
                                 </select>
@@ -151,7 +148,7 @@
                             </div>
                             <div class="form-group">
                                 <textarea placeholder="Mô tả" class="form-control"
-                                    formControlName="productzDescription"></textarea>
+                                    formControlName="productDescription"></textarea>
                             </div>
                         </div>
                         <div class="modal-footer border-top-0 d-flex justify-content-end">
@@ -163,8 +160,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="m-auto col-xl-8">
-            <!-- <app-detail-item (DataDetail)="onDataCate($event)"></app-detail-item> -->
+        <div class="m-auto col-xl-10">
+            <app-product-item (DataProduct)="onDataProduct($event)"></app-product-item>
         </div>
     </div>
 </div>

@@ -9,7 +9,6 @@ import { AppComponent } from './app.component';
 import { ShowButtonBackToTopDirective } from './directive/show-btn_backTopTop';
 import { FooterComponent } from './user/footer/footer.component';
 import { HomePageComponent } from './user/home-page/home-page.component';
-import { CartPageComponent } from './user/cart-page/cart-page.component';
 import { ShowPassDirective } from './directive/show-pass.directive';
 import { AdminComponent } from './admin/admin.component';
 import { UserComponent } from './user/user.component';
@@ -27,6 +26,10 @@ import { DetailComponent } from './admin/detail/detail.component';
 import { DetailItemComponent } from './admin/detail/detail-item/detail-item.component';
 import { ProductComponent } from './admin/product/product.component';
 import { ProductItemComponent } from './admin/product/product-item/product-item.component';
+import { CartPageComponent } from './user/cart-page/cart-page.component';
+import { ProductNewComponent } from './user/product-new/product-new.component';
+import { ProductListComponent } from './user/product-new/product-list/product-list.component';
+import { ProductDetailComponent } from './user/product-detail/product-detail.component';
 
 @NgModule({
   declarations: [
@@ -51,6 +54,9 @@ import { ProductItemComponent } from './admin/product/product-item/product-item.
     DetailItemComponent,
     ProductComponent,
     ProductItemComponent,
+    ProductNewComponent,
+    ProductListComponent,
+    ProductDetailComponent,
   ],
   imports: [
     BrowserModule,
