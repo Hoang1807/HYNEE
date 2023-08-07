@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.hynee.entity.Category;
 import com.hynee.entity.Image;
+import com.hynee.entity.Product;
 import com.hynee.repository.CategoryDAO;
 import com.hynee.repository.ImageDAO;
 
@@ -38,5 +39,9 @@ public class ImageService {
 
 	public void deleteImage(String id) {
 		this.imageDAO.deleteById(id);
+	}
+	
+	public List<Image> findByProduct(Product product){
+		return this.imageDAO.findByProduct(product);
 	}
 }

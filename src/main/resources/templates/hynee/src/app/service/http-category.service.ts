@@ -65,4 +65,13 @@ export class HttpCategoryService {
         })
       );
   }
+
+  getById(id: string) {
+    return this.http.get<Category>(
+      `http://localhost:8080/admin/category/${id}`,
+      {
+        observe: 'response',
+      }
+    );
+  }
 }

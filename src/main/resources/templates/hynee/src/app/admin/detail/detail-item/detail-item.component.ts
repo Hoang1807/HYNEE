@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Detail } from 'src/app/entity/Detail.interface';
 import { HttpDetailService } from 'src/app/service/http-detail.service';
 
@@ -7,7 +7,7 @@ import { HttpDetailService } from 'src/app/service/http-detail.service';
   templateUrl: './detail-item.component.html',
   styleUrls: ['./detail-item.component.css'],
 })
-export class DetailItemComponent {
+export class DetailItemComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   @Output() DataDetail = new EventEmitter<Detail>();
   constructor(private httpDetail: HttpDetailService) {}

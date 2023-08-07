@@ -3,9 +3,12 @@ package com.hynee.entity;
 
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.hibernate.annotations.Nationalized;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,8 +36,8 @@ public class Users {
 	private String userImage;
 	private Date user_create_date;
 	private Boolean userStatus;
-	private Set<Invoice> invoices = new HashSet<Invoice>(0);
-	private Set<Feedback> feedbacks = new HashSet<Feedback>(0);
+	private List<Invoice> invoices;
+	private List<Feedback> feedbacks;
 
 	public Users() {
 	}
@@ -47,7 +50,8 @@ public class Users {
 	}
 
 	public Users(String userPhone, String userFullname, String userPassword, boolean userRole, String userGmail,
-			String userImage, Date userCreateDate, Boolean userStatus, Set<Invoice> invoices, Set<Feedback> feedbacks) {
+			String userImage, Date userCreateDate, Boolean userStatus, List<Invoice> invoices,
+			List<Feedback> feedbacks) {
 		this.userPhone = userPhone;
 		this.userFullname = userFullname;
 		this.userPassword = userPassword;
@@ -61,7 +65,6 @@ public class Users {
 	}
 
 	@Id
-
 	@Column(name = "user_phone", unique = true, nullable = false, length = 10)
 	public String getUserPhone() {
 		return this.userPhone;
@@ -136,21 +139,23 @@ public class Users {
 		this.userStatus = userStatus;
 	}
 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
-	public Set<Invoice> getInvoices() {
+	public List<Invoice> getInvoices() {
 		return this.invoices;
 	}
 
-	public void setInvoices(Set<Invoice> invoices) {
+	public void setInvoices(List<Invoice> invoices) {
 		this.invoices = invoices;
 	}
-
+	
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "users")
-	public Set<Feedback> getFeedbacks() {
+	public List<Feedback> getFeedbacks() {
 		return this.feedbacks;
 	}
 
-	public void setFeedbacks(Set<Feedback> feedbacks) {
+	public void setFeedbacks(List<Feedback> feedbacks) {
 		this.feedbacks = feedbacks;
 	}
 

@@ -6,8 +6,10 @@ import {
   OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { Product } from 'src/app/entity/Product.interface';
 import { User } from 'src/app/entity/User.interface';
 import { AuthAccountService } from 'src/app/service/AuthAccount.service';
+import { CartStoreService } from 'src/app/service/cart-store.service';
 import { HttpUserService } from 'src/app/service/http-user.service';
 import { NotificationService } from 'src/app/service/notification.service';
 @Component({
@@ -21,13 +23,17 @@ export class HeaderComponent implements OnInit {
   hiddenLogin: boolean = false;
   logged: boolean = false;
   account_activate: User;
+  products: Product[] = [];
   constructor(
     private router: Router,
     private renderer: Renderer2,
     private httpUserService: HttpUserService,
     private authService: AuthAccountService,
-    private noti: NotificationService
-  ) {}
+    private noti: NotificationService,
+    private cartStore: CartStoreService
+  ) {
+    this.products = cartStore.getCart();
+  }
 
   ngOnInit(): void {
     this.checkUrlShowCarousel();

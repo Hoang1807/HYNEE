@@ -6,6 +6,8 @@ import {
 } from '@angular/core';
 import { HttpCategoryService } from '../service/http-category.service';
 import { HttpDetailService } from '../service/http-detail.service';
+import { HttpImageService } from '../service/http-image.service';
+import { HttpProductService } from '../service/http-product.service';
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
@@ -16,7 +18,9 @@ export class AdminComponent implements AfterViewInit, OnInit {
   isLoading = false;
   constructor(
     private httpCate: HttpCategoryService,
-    private httpDetail: HttpDetailService
+    private httpDetail: HttpDetailService,
+    private httpImage: HttpImageService,
+    private httpProduct: HttpProductService
   ) {}
 
   ngOnInit(): void {
@@ -24,6 +28,12 @@ export class AdminComponent implements AfterViewInit, OnInit {
       this.isLoading = isLoading;
     });
     this.httpDetail.isLoading.subscribe((isLoading: boolean) => {
+      this.isLoading = isLoading;
+    });
+    this.httpImage.isLoading.subscribe((isLoading: boolean) => {
+      this.isLoading = isLoading;
+    });
+    this.httpProduct.isLoading.subscribe((isLoading: boolean) => {
       this.isLoading = isLoading;
     });
   }

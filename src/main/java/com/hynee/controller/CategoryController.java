@@ -39,6 +39,15 @@ public class CategoryController {
 		return new ResponseEntity("CATEROGYID_EXIST", HttpStatus.BAD_REQUEST);
 	}
 
+	@GetMapping(value = "category/{id}")
+	public ResponseEntity<Category> getById(@PathVariable(value = "id") String categoryId) {
+		Category category = this.categoryService.findById(categoryId);
+		if (category == null) {
+			return new ResponseEntity("CATEROGYID_NOT_EXIST", HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity(category, HttpStatus.OK);
+	}
+
 	@GetMapping(value = "category/all")
 	public ResponseEntity<List<Category>> getAll() {
 		return new ResponseEntity(this.categoryService.findAllCategory(), HttpStatus.OK);

@@ -2,9 +2,13 @@ package com.hynee.entity;
 // Generated Jul 5, 2023, 11:01:33 AM by Hibernate Tools 4.3.6.Final
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.hibernate.annotations.Nationalized;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -24,7 +28,7 @@ public class Category {
 
 	private String categoryId;
 	private String categoryName;
-	private Set<Product> products = new HashSet<Product>(0);
+	private List<Product> products;
 
 	public Category() {
 	}
@@ -34,7 +38,7 @@ public class Category {
 		this.categoryName = categoryName;
 	}
 
-	public Category(String categoryId, String categoryName, Set<Product> products) {
+	public Category(String categoryId, String categoryName, List<Product> products) {
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
 		this.products = products;
@@ -61,12 +65,13 @@ public class Category {
 		this.categoryName = categoryName;
 	}
 
+	@JsonIgnore
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "category")
-	public Set<Product> getProducts() {
+	public List<Product> getProducts() {
 		return this.products;
 	}
 
-	public void setProducts(Set<Product> products) {
+	public void setProducts(List<Product> products) {
 		this.products = products;
 	}
 
