@@ -24,9 +24,9 @@
                 <i class="fas fa-heart text-primary"></i>
                 <span class="badge">0</span>
             </a>
-            <a [routerLink]="['/cart']" class="btn border">
+            <a [routerLink]="['/cart']" class="btn border" (click)="checkUrlShowCarousel()">
                 <i class="fas fa-shopping-cart text-primary"></i>
-                <span class="badge" [innerText]="products.length" (click)="checkUrlShowCarousel()"></span>
+                <span class="badge" [innerText]="products.length"></span>
             </a>
         </div>
     </div>
@@ -87,8 +87,8 @@
                             class="nav-item nav-link text-capitalize">
                             Trang chủ
                         </a>
-                        <a [routerLink]="['/product-new',0]" (click)="checkUrlShowCarousel()" routerLinkActive="active"
-                            class="nav-item nav-link text-capitalize">
+                        <a [routerLink]="['/product-new',0]" [queryParams]="{sort:''}" (click)="checkUrlShowCarousel()"
+                            routerLinkActive="active" class="nav-item nav-link text-capitalize">
                             Sản phẩm mới
                         </a>
                         <a [routerLink]="['product-selling']" routerLinkActive="active"

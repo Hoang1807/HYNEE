@@ -83,7 +83,6 @@ public class ImageController {
 	
 	@GetMapping(value = "image/{id}")
 	public ResponseEntity<List<Image>> getImageById(@PathVariable("id") String productId) {
-		System.out.println(productId);
 		Product product = this.productService.findById(productId);
 		List<Image> image = this.imageService.findByProduct(product);
 		if (image == null) {

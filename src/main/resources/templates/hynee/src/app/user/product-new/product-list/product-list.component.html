@@ -1,26 +1,26 @@
 <div class="row pb-3">
     <div class="col-12 pb-1">
         <div class="d-flex align-items-center justify-content-between mb-4">
-            <form action="">
+            <div>
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search by name">
+                    <input type="text" class="form-control" placeholder="Search by name" (change)="onSearch()">
                     <div class="input-group-append">
-                        <span class="input-group-text bg-transparent text-primary">
+                        <button class="input-group-text bg-transparent text-primary">
                             <i class="fa fa-search"></i>
-                        </span>
+                        </button>
                     </div>
                 </div>
-            </form>
+            </div>
             <div class="dropdown ml-4">
                 <button class="btn border dropdown-toggle" type="button" id="triggerId" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">
                     Sort by
                 </button>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" routerLink="./" [queryParams]="{sort:true}"
+                    <a class="dropdown-item" [routerLink]="[]" [queryParams]="{sort:true}" queryParamsHandling="merge"
                         (click)="onCheckQueryParams(true)">Giá Tăng
                         dần</a>
-                    <a class=" dropdown-item" routerLink="./" [queryParams]="{sort:false}"
+                    <a class=" dropdown-item" [routerLink]="[]" [queryParams]="{sort:false}" queryParamsHandling="merge"
                         (click)="onCheckQueryParams(true)">Giá Giảm dần</a>
                 </div>
             </div>
@@ -67,19 +67,17 @@
         <nav aria-label="Page navigation">
             <ul class="pagination justify-content-center mb-3">
                 <li class="page-item">
-                    <a class="page-link" [routerLink]="['../'+0]" [queryParams]="{sort: checkParams?sort:''}">
+                    <a class="page-link" [routerLink]="['../'+0]" queryParamsHandling="merge">
                         <span aria-hidden=" true">&laquo;</span>
                         <span class="sr-only">Previous</span>
                     </a>
                 </li>
                 <li class="page-item" *ngFor="let item of [].constructor(numberPage);let i = index"
                     routerLinkActive="active">
-                    <a class="page-link" [routerLink]="['../'+i]" [queryParams]="{sort: checkParams?sort:''}"
-                        [queryParams]="" [innerText]="i+1"></a>
+                    <a class="page-link" [routerLink]="['../'+i]" [innerText]="i+1" queryParamsHandling="merge"></a>
                 </li>
                 <li class="page-item">
-                    <a class="page-link" [routerLink]="['../'+(numberPage-1)]"
-                        [queryParams]="{sort: checkParams?sort:''}">
+                    <a class="page-link" [routerLink]="['../',(numberPage-1)]" queryParamsHandling="merge">
                         <span aria-hidden="true">&raquo;</span>
                         <span class="sr-only">Next</span>
                     </a>

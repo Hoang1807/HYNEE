@@ -206,7 +206,6 @@ public class Product {
 		this.feedbacks = feedbacks;
 	}
 
-	@JsonIgnore
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "DETAIL_PRODUCT", schema = "dbo", catalog = "HYNEE", joinColumns = {
 			@JoinColumn(name = "product_id", nullable = false, updatable = false) }, inverseJoinColumns = {

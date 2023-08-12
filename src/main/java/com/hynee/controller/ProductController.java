@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -52,13 +53,51 @@ public class ProductController {
 		return new ResponseEntity(product, HttpStatus.OK);
 	}
 
+//	@GetMapping(value = "product/search")
+//	public ResponseEntity<Page<Product>> searchPage(@RequestParam("page") Optional<Integer> page,
+//			@RequestParam("sort") Optional<Boolean> sort, @RequestParam("priceTo") Optional<Integer> priceTo,
+//			@RequestParam("priceFrom") Optional<Integer> priceFrom) {
+//		
+//		Pageable pageable = PageRequest.of(page.orElse(0), 9, sort.orElse(true) ? Direction.ASC : Direction.DESC,
+//				"productPrice");
+//		Page<Product> productPage = this.productService.findPage(pageable);
+//		return new ResponseEntity(productPage, HttpStatus.OK);
+//	}
+
 	@GetMapping(value = "product/search")
-	public ResponseEntity<Page<Product>> searchPage(@RequestParam("page") Optional<Integer> page,
-			@RequestParam("sort") Optional<Boolean> sort) {
+	public ResponseEntity<Page<Product>> searchProducts(@RequestParam("page") Optional<Integer> page,
+			@RequestParam("sort") Optional<Boolean> sort,
+			@RequestParam(name = "priceTo", required = false) Integer priceTo,
+			@RequestParam(name = "priceFrom", required = false) Integer priceFrom,
+			@RequestParam(name = "productSize", required = false) String productSize,
+			@RequestParam(name = "priceGreaterThan", required = false) Integer priceGreaterThan,
+			@RequestParam(name = "productName", required = false) String productName) {
 		Pageable pageable = PageRequest.of(page.orElse(0), 9, sort.orElse(true) ? Direction.ASC : Direction.DESC,
-				"productName");
-		Page<Product> productPage = this.productService.findPage(pageable);
-		return new ResponseEntity(productPage, HttpStatus.OK);
+				"productPrice");
+
+		Page<Product> productPage;
+
+		if (productSize != null && !productSize.isEmpty()) {
+			if ((priceFrom != 0 || priceTo != 0) && priceGreaterThan == 0) {
+				productPage = productService.findByProductSizeAndProductPriceBetween(productSize, priceFrom, priceTo,
+						pageable);
+			} else if (priceGreaterThan != 0) {
+				productPage = productService.findByProductSizeAndProductPriceGreaterThan(productSize, priceGreaterThan,
+						pageable);
+			} else {
+				productPage = productService.findByProductSize(productSize, pageable);
+			}
+		} else if ((priceFrom != 0 || priceTo != 0) && priceGreaterThan == 0) {
+			productPage = productService.findByProductPriceBetween(priceFrom, priceTo, pageable);
+		} else if (priceGreaterThan != 0) {
+			productPage = productService.findByProductPriceGreaterThan(priceGreaterThan, pageable);
+		} else if (productName != null && !productName.isEmpty()) {
+			productPage = productService.findByProductNameContaining(productName, pageable);
+		} else {
+			productPage = productService.findPage(pageable);
+		}
+
+		return new ResponseEntity<>(productPage, HttpStatus.OK);
 	}
 
 	@PostMapping(value = "product/add")
@@ -73,6 +112,25 @@ public class ProductController {
 			this.productService.addProduct(product);
 			return new ResponseEntity(product, HttpStatus.OK);
 		}
+	}
+
+	@PutMapping(value = "product/update")
+	public ResponseEntity<Product> updateProduct(@RequestBody Product product) {
+		Product existingProduct = this.productService.findById(product.getProductId());
+		if (existingProduct == null) {
+			return new ResponseEntity("PRODUCT_NOT_EXIST", HttpStatus.BAD_REQUEST);
+		}
+		existingProduct.setProductName(product.getProductName());
+		existingProduct.setProductCode(product.getProductCode());
+		existingProduct.setProductColor(product.getProductColor());
+		existingProduct.setProductQuantity(product.getProductQuantity());
+		existingProduct.setProductSize(product.getProductSize());
+		existingProduct.setProductColor(product.getProductColor());
+		existingProduct.setProductDescription(product.getProductDescription());
+		existingProduct.setProductStatus(product.getProductStatus());
+
+		Product updatedProduct = this.productService.updateProduct(existingProduct);
+		return new ResponseEntity(updatedProduct, HttpStatus.OK);
 	}
 
 }

@@ -1,0 +1,57 @@
+<div class="container-fluid">
+
+    <!-- Page Heading -->
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Quản Lý Hóa Đơn</h1>
+        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"
+            data-target="#form" id="btnAddDetail">
+            <i class="fas fa-plus fa-sm text-white-50"></i>
+            Tạo hóa đơn</a>
+
+        <div class="modal fade" id="form" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header border-bottom-0">
+                        <h5 class="modal-title" id="exampleModalLabel" [innerText]="title"></h5>
+                        <button type="button" class="close" data-dismiss="modal" #close>
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form method="post" [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
+                        <div class="modal-body" formGroupName="detailData">
+                            <input type="hidden" formControlName="detailId">
+                            <div class="form-group">
+                                <input type="text" class="form-control" formControlName="detailName"
+                                    placeholder="Tiêu dề">
+                                <span class="text-danger"
+                                    *ngIf="invoiceForm.get('detailData.detailName').invalid && invoiceForm.get('detailData.detailName').touched">
+                                    <span *ngIf="invoiceForm.get('detailData.detailName').errors['required']">
+                                        Vui lòng nhập Tiêu Đề
+                                    </span>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" formControlName="detailValue"
+                                    placeholder="Nội Dung">
+                                <span class="text-danger"
+                                    *ngIf="invoiceForm.get('detailData.detailValue').invalid && invoiceForm.get('detailData.detailValue').touched">
+                                    <span *ngIf="invoiceForm.get('detailData.detailValue').errors['required']">
+                                        Vui lòng nhập Nội Dung
+                                    </span>
+                                </span>
+                            </div>
+                        </div>
+                        <div class="modal-footer border-top-0 d-flex justify-content-end">
+                            <button type="submit" class="btn btn-success" [disabled]="invoiceForm.invalid">Lưu</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="m-auto col-xl-8">
+            <app-detail-item></app-detail-item>
+        </div>
+    </div>
+</div>

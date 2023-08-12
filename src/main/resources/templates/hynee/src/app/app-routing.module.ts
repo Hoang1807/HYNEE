@@ -13,6 +13,7 @@ import { ProductComponent } from './admin/product/product.component';
 import { ProductNewComponent } from './user/product-new/product-new.component';
 import { ProductListComponent } from './user/product-new/product-list/product-list.component';
 import { ProductDetailComponent } from './user/product-detail/product-detail.component';
+import { InvoiceComponent } from './admin/invoice/invoice.component';
 
 const routes: Routes = [
   {
@@ -78,6 +79,11 @@ const routes: Routes = [
         path: 'product',
         component: ProductComponent,
         title: 'Hynee - Admin - Quản Lý Sản Phẩm',
+      },
+      {
+        path: 'invoice',
+        component: InvoiceComponent,
+        title: 'Hynee - Admin - Quản lý Hóa Đơn',
       },
     ],
   },

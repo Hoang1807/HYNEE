@@ -45,7 +45,6 @@ public class Category {
 	}
 
 	@Id
-
 	@Column(name = "category_id", unique = true, nullable = false, length = 10)
 	public String getCategoryId() {
 		return this.categoryId;

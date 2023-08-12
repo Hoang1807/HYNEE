@@ -31,6 +31,7 @@ export class ProductItemComponent {
         {
           title: 'Mã hệ thống',
           data: 'productId',
+          visible: false,
         },
         {
           title: 'Mã sản phẩm',
@@ -55,6 +56,11 @@ export class ProductItemComponent {
         {
           title: 'Màu',
           data: 'productColor',
+          render: function (data, type, row) {
+            return data === true
+              ? '<span class="glyphicon glyphicon-ok">${}</span>'
+              : '<span class="glyphicon glyphicon-remove">as</span>';
+          },
         },
         {
           title: 'Giá',
@@ -67,6 +73,11 @@ export class ProductItemComponent {
         {
           title: 'Loại',
           data: 'category.categoryName',
+        },
+        {
+          title: 'Chi',
+          data: 'details',
+          visible: false,
         },
       ],
       pagingType: 'simple_numbers',

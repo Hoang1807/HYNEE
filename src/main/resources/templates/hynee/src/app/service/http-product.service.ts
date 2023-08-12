@@ -45,13 +45,33 @@ export class HttpProductService {
       observe: 'response',
     });
   }
-  getSearchPage(page: number, sortBy: boolean = true) {
+  getSearchPage(
+    page: number,
+    sortBy: boolean = true,
+    priceFrom: number = 0,
+    priceTo: number = 0,
+    priceGreaterThan: number = 0,
+    productSize: string = ''
+  ) {
     this.isLoading.next(true);
     return this.http.get<any>('http://localhost:8080/admin/product/search', {
-      params: new HttpParams().append('page', page).append('sort', sortBy),
+      params: new HttpParams()
+        .append('page', page)
+        .append('sort', sortBy)
+        .append('priceFrom', priceFrom)
+        .append('priceTo', priceTo)
+        .append('priceGreaterThan', priceGreaterThan)
+        .append('productSize', productSize),
       observe: 'response',
     });
   }
 
-  updateProduct() {}
+  updateProduct(product: Product) {
+    product.productQuantity -= product.quantity;
+    return this.http.put(
+      'http://localhost:8080/admin/product/update',
+      product,
+      { observe: 'response' }
+    );
+  }
 }

@@ -30,6 +30,8 @@ import { CartPageComponent } from './user/cart-page/cart-page.component';
 import { ProductNewComponent } from './user/product-new/product-new.component';
 import { ProductListComponent } from './user/product-new/product-list/product-list.component';
 import { ProductDetailComponent } from './user/product-detail/product-detail.component';
+import { InvoiceComponent } from './admin/invoice/invoice.component';
+import { InvoiceItemComponent } from './admin/invoice/invoice-item/invoice-item.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +59,8 @@ import { ProductDetailComponent } from './user/product-detail/product-detail.com
     ProductNewComponent,
     ProductListComponent,
     ProductDetailComponent,
+    InvoiceComponent,
+    InvoiceItemComponent,
   ],
   imports: [
     BrowserModule,

@@ -36,6 +36,15 @@ public class DetailController {
 		return new ResponseEntity(this.detailService.findAllCategory(), HttpStatus.OK);
 	}
 
+	@GetMapping(value = "detail/{id}")
+	public ResponseEntity<Detail> getById(@PathVariable(value = "id") String detailId) {
+		Detail detail = this.detailService.findById(detailId);
+		if (detail == null) {
+			return new ResponseEntity("DETAILID_NOT_EXIST", HttpStatus.BAD_REQUEST);
+		}
+		return new ResponseEntity(detail, HttpStatus.OK);
+	}
+
 	@PostMapping(value = "detail/add")
 	public ResponseEntity<Detail> addDetail(@RequestBody Detail detail) {
 		UUID uuid = UUID.randomUUID();

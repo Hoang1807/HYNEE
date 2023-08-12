@@ -1,7 +1,11 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Detail } from 'src/app/entity/Detail.interface';
+import { DetailProduct } from 'src/app/entity/DetailProduct.interface';
+import { DetailProductId } from 'src/app/entity/DetailProductId.interface';
 import { Product } from 'src/app/entity/Product.interface';
 import { CartStoreService } from 'src/app/service/cart-store.service';
+import { HttpDetailService } from 'src/app/service/http-detail.service';
 import { HttpImageService } from 'src/app/service/http-image.service';
 import { HttpProductService } from 'src/app/service/http-product.service';
 import { NotificationService } from 'src/app/service/notification.service';
@@ -16,11 +20,13 @@ export class ProductDetailComponent implements OnInit {
   @ViewChild('quantity') quantity: ElementRef;
   checkQuantity: boolean = false;
   product: Product;
+  listDetailProducts: Detail[] = [];
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private httpProduct: HttpProductService,
     private httpImage: HttpImageService,
+    private httpDetail: HttpDetailService,
     private noti: NotificationService,
     private cartStore: CartStoreService
   ) {}
@@ -34,8 +40,25 @@ export class ProductDetailComponent implements OnInit {
           next: (dataImg) => {
             this.httpImage.isLoading.next(false);
             this.product.images = dataImg.body;
-            console.log(this.product);
           },
+        });
+
+        const detailProductId: DetailProductId = {
+          detailId: null,
+          productId: this.product.productId,
+        };
+        this.httpDetail.getDetailProduct(detailProductId).subscribe({
+          next: (data) => {
+            const listDetailProduct: DetailProduct[] = data.body;
+            listDetailProduct.forEach((element) => {
+              this.httpDetail
+                .getById(element.id.detailId)
+                .subscribe((dataDetail) => {
+                  this.listDetailProducts.push(dataDetail.body);
+                });
+            });
+          },
+          error: (err) => {},
         });
       },
     });
@@ -58,9 +81,9 @@ export class ProductDetailComponent implements OnInit {
   }
 
   onAddToCart(product: Product) {
-    let quantity = this.quantity.nativeElement.value;
+    let quantity: number = this.quantity.nativeElement.value;
     this.cartStore.addToCart(product);
-    this.cartStore.updateCartItemQuantity(product, quantity);
+    // this.cartStore.updateCartItemQuantity(product, quantity);
     this.router.navigate(['/cart']);
   }
 }

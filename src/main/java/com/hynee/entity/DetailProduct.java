@@ -1,6 +1,8 @@
 package com.hynee.entity;
 // Generated Jul 5, 2023, 11:01:33 AM by Hibernate Tools 4.3.6.Final
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -41,6 +43,7 @@ public class DetailProduct {
 		this.id = id;
 	}
 
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@MapsId("productId")
 	@JoinColumn(name = "product_id", nullable = false)
@@ -51,7 +54,8 @@ public class DetailProduct {
 	public void setProduct(Product product) {
 		this.product = product;
 	}
-
+	
+	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@MapsId("detailId")
 	@JoinColumn(name = "detail_id", nullable = false)

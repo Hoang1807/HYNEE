@@ -47,4 +47,29 @@ public class ProductService {
 	public boolean findByCodeAndColor(String productCode, String productColor) {
 		return this.productDAO.existsByProductCodeContainingAndProductColorContaining(productCode, productColor);
 	}
+
+	public Page<Product> findByProductPriceBetween(int minPrice, int maxPrice, Pageable pageable) {
+		return productDAO.findByProductPriceBetween(minPrice, maxPrice, pageable);
+	}
+
+	public Page<Product> findByProductSize(String productSize, Pageable pageable) {
+		return productDAO.findByProductSize(productSize, pageable);
+	}
+
+	public Page<Product> findByProductPriceGreaterThan(int price, Pageable pageable) {
+		return productDAO.findByProductPriceGreaterThanEqual(price, pageable);
+	}
+
+	public Page<Product> findByProductSizeAndProductPriceBetween(String productSize, int minPrice, int maxPrice,
+			Pageable pageable) {
+		return productDAO.findByProductSizeAndProductPriceBetween(productSize, minPrice, maxPrice, pageable);
+	}
+
+	public Page<Product> findByProductSizeAndProductPriceGreaterThan(String productSize, int price, Pageable pageable) {
+		return productDAO.findByProductSizeAndProductPriceGreaterThanEqual(productSize, price, pageable);
+	}
+
+	public Page<Product> findByProductNameContaining(String productName, Pageable pageable) {
+		return productDAO.findByProductNameContaining(productName, pageable);
+	}
 }
