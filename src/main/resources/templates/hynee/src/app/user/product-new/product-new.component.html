@@ -5,37 +5,43 @@
         <div class="col-lg-3 col-md-12">
             <!-- Price Start -->
             <div class="border-bottom mb-4 pb-4">
-                <h5 class="font-weight-semi-bold mb-4">Filter by price</h5>
+                <h5 class="font-weight-semi-bold mb-4">Lọc theo Giá</h5>
                 <form>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" checked id="price-all">
-                        <label class="custom-control-label" for="price-all">All Price</label>
+                        <input type="radio" [routerLink]="[]"
+                            [queryParams]="{'priceFrom':null,'priceTo':null,'priceGreaterThan':null}"
+                            queryParamsHandling="merge" name="price" class="custom-control-input" id="price-all">
+                        <label class="custom-control-label" for="price-all">Tất cả</label>
                         <span class="badge border font-weight-normal">1000</span>
                     </div>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="price-1">
-                        <label class="custom-control-label" for="price-1">$0 - $100</label>
+                        <input type="radio" name="price" [routerLink]="[]"
+                            [queryParams]="{'priceFrom':null,'priceTo':'100000','priceGreaterThan':null}"
+                            queryParamsHandling="merge" queryParamsHandling="merge" class="custom-control-input"
+                            id="price-1">
+                        <label class="custom-control-label" for="price-1">Dưới 100.000 VND</label>
                         <span class="badge border font-weight-normal">150</span>
                     </div>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="price-2">
-                        <label class="custom-control-label" for="price-2">$100 - $200</label>
+                        <input type="radio" name="price" [routerLink]="[]"
+                            [queryParams]="{'priceFrom':'100000','priceTo':'200000','priceGreaterThan':null}"
+                            queryParamsHandling="merge" class="custom-control-input" id="price-2">
+                        <label class="custom-control-label" for="price-2">100.000 VND - 200.000 VND</label>
                         <span class="badge border font-weight-normal">295</span>
                     </div>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="price-3">
-                        <label class="custom-control-label" for="price-3">$200 - $300</label>
+                        <input type="radio" name="price" [routerLink]="[]"
+                            [queryParams]="{'priceFrom':'200000','priceTo':'300000','priceGreaterThan':null}"
+                            queryParamsHandling="merge" class="custom-control-input" id="price-3">
+                        <label class="custom-control-label" for="price-3">200.000 VND - 300.000 VND</label>
                         <span class="badge border font-weight-normal">246</span>
                     </div>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="price-4">
-                        <label class="custom-control-label" for="price-4">$300 - $400</label>
+                        <input type="radio" name="price" class="custom-control-input" id="price-4" [routerLink]="[]"
+                            [queryParams]="{'priceGreaterThan':'300000','priceFrom':null,'priceTo':null}"
+                            queryParamsHandling="merge">
+                        <label class="custom-control-label" for="price-4">Trên 300.000 VND</label>
                         <span class="badge border font-weight-normal">145</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                        <input type="checkbox" class="custom-control-input" id="price-5">
-                        <label class="custom-control-label" for="price-5">$400 - $500</label>
-                        <span class="badge border font-weight-normal">168</span>
                     </div>
                 </form>
             </div>
@@ -43,35 +49,35 @@
 
             <!-- Size Start -->
             <div class="mb-5">
-                <h5 class="font-weight-semi-bold mb-4">Filter by size</h5>
+                <h5 class="font-weight-semi-bold mb-4">Lọc theo size-1</h5>
                 <form>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" checked id="size-all">
+                        <input type="radio" class="custom-control-input" name="size" [routerLink]="[]"
+                            [queryParams]="{'productSize':null}" queryParamsHandling="merge" id="size-all">
                         <label class="custom-control-label" for="size-all">All Size</label>
                         <span class="badge border font-weight-normal">1000</span>
                     </div>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="size-1">
-                        <label class="custom-control-label" for="size-1">XS</label>
+                        <input type="radio" class="custom-control-input" name="size" [routerLink]="[]"
+                            [queryParams]="{'productSize':'S'}" queryParamsHandling="merge" id="size-1">
+                        <label class="custom-control-label" for="size-1">S</label>
                         <span class="badge border font-weight-normal">150</span>
                     </div>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="size-2">
-                        <label class="custom-control-label" for="size-2">S</label>
-                        <span class="badge border font-weight-normal">295</span>
-                    </div>
-                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="size-3">
+                        <input type="radio" class="custom-control-input" [routerLink]="[]"
+                            [queryParams]="{'productSize':'M'}" queryParamsHandling="merge" name="size" id="size-3">
                         <label class="custom-control-label" for="size-3">M</label>
                         <span class="badge border font-weight-normal">246</span>
                     </div>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
-                        <input type="checkbox" class="custom-control-input" id="size-4">
+                        <input type="radio" class="custom-control-input" [routerLink]="[]"
+                            [queryParams]="{'productSize':'L'}" queryParamsHandling="merge" name="size" id="size-4">
                         <label class="custom-control-label" for="size-4">L</label>
                         <span class="badge border font-weight-normal">145</span>
                     </div>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between">
-                        <input type="checkbox" class="custom-control-input" id="size-5">
+                        <input type="radio" class="custom-control-input" name="size" [routerLink]="[]"
+                            [queryParams]="{'productSize':'XL'}" queryParamsHandling="merge" id="size-5">
                         <label class="custom-control-label" for="size-5">XL</label>
                         <span class="badge border font-weight-normal">168</span>
                     </div>

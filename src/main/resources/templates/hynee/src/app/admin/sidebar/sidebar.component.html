@@ -43,6 +43,23 @@
         </div>
     </li>
 
+    <div class="sidebar-heading">
+        Hóa đơn
+    </div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+    <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#invoice">
+            <i class="fas fa-tshirt"></i>
+            <span>Quản lý đơn hàng</span>
+        </a>
+        <div id="invoice" class="collapse" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <h6 class="collapse-header">Custom Components:</h6>
+                <a class="collapse-item" [routerLink]="['invoice']" routerLinkActive="active">Hóa đơn đặt hàng</a>
+            </div>
+        </div>
+    </li>
     <!-- Heading -->
     <div class="sidebar-heading">
         Interface

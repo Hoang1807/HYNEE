@@ -20,7 +20,6 @@ export class HttpInvoiceService {
   }
 
   createInvoice(invoice: Invoice) {
-    console.log(invoice);
     return this.http.post<Invoice>(this.baseUrl, invoice, {
       observe: 'response',
       params: new HttpParams().append('userPhone', invoice.users.userPhone),

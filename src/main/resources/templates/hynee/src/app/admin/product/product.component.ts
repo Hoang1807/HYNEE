@@ -93,64 +93,106 @@ export class ProductComponent implements OnInit {
 
   onSubmit() {
     let data = this.productForm.value['productData'];
-    console.log(data);
     const formData = new FormData();
     for (var i = 0; i < this.files.length; i++) {
       formData.append('image', this.files[i]);
     }
     formData.append('name', data.productName + data.productColor);
-
     if (this.title === 'Cập Nhật') {
+      data = this.productForm.value['productData'];
+      let dataCopy: Product = {
+        productId: data.productId,
+        productQuantity: this.productForm.get('productData.productQuantity')
+          .value,
+        category: data.category,
+        productCode: data.productCode,
+        productColor: data.productColor,
+        productDescription: data.productDescription,
+        productName: data.productName,
+        productPrice: data.productPrice,
+        productSize: data.productSize,
+        productStatus: data.productStatus,
+        quantity: 0,
+      };
+      this.httpCate.getById(data.category).subscribe({
+        next: (dataCate) => {
+          dataCopy.category = dataCate.body;
+          this.httpProduct.updateProduct(dataCopy).subscribe({
+            next: (dataPro) => {
+              this.noti.createNotiSuccess('Cập nhật thành công', 'Thông báo');
+              this.btnClose.nativeElement.click();
+              this.router
+                .navigateByUrl('/admin/home', {
+                  skipLocationChange: true,
+                })
+                .then(() => this.router.navigate(['/admin/product']));
+            },
+            error: (err) => {
+              this.noti.createNotiSuccess('Cập nhật thất bại', 'Thông báo');
+            },
+          });
+        },
+      });
     } else {
       this.httpImage.addImageClound(formData).subscribe({
         next: (responseImg) => {
           data = this.productForm.value['productData'];
+          this.httpCate.getById(data.category).subscribe({
+            next: (dataCate) => {
+              data.category = dataCate.body;
+              this.httpProduct.addProduct(data).subscribe({
+                next: (responsePro) => {
+                  data.detail.forEach((detailId) => {
+                    this.httpDetail.getById(detailId).subscribe({
+                      next: (dataDetail) => {
+                        const item: DetailProduct = {
+                          id: {
+                            detailId: dataDetail.body.detailId,
+                            productId: responsePro.body.productId,
+                          },
+                          detail: dataDetail.body,
+                          product: responsePro.body,
+                        };
+                        this.httpDetail.addDetailProduct(item).subscribe({
+                          next: () => {
+                            console.log('ok');
+                          },
+                          error: () => {
+                            console.log('error');
+                          },
+                        });
+                      },
+                      error: (err) => {},
+                    });
+                  });
+                  this.httpProduct.isLoading.next(false);
+                  this.httpImage
+                    .addImage(responseImg.body, responsePro.body)
+                    .subscribe({
+                      next: () => {
+                        this.noti.createNotiSuccess(
+                          'Thêm thành công',
+                          'Thông báo'
+                        );
+                        this.btnClose.nativeElement.click();
+                        this.router
+                          .navigateByUrl('/admin/home', {
+                            skipLocationChange: true,
+                          })
+                          .then(() => this.router.navigate(['/admin/product']));
+                      },
+                    });
+                },
+                error: (err) => {
+                  this.httpProduct.isLoading.next(false);
+                  this.noti.createNotiError(err, 'Thông báo');
+                },
+              });
+            },
+            error: (err) => {},
+          });
           this.httpImage.isLoading.next(false);
           this.listImage = responseImg.body;
-          this.httpProduct.addProduct(data).subscribe({
-            next: (responsePro) => {
-              let listDetailProduct: DetailProduct[] = [];
-              data.detail.forEach((element) => {
-                const item: DetailProduct = {
-                  id: {
-                    detailId: element.detailId,
-                    productId: responsePro.body.productId,
-                  },
-                  detail: element,
-                  product: responsePro.body,
-                };
-                listDetailProduct.push(item);
-              });
-
-              this.httpDetail.addDetailProduct(listDetailProduct).subscribe({
-                next: () => {
-                  console.log('ok');
-                },
-                error: () => {
-                  console.log('error');
-                },
-              });
-
-              this.httpProduct.isLoading.next(false);
-              this.httpImage
-                .addImage(responseImg.body, responsePro.body)
-                .subscribe({
-                  next: () => {
-                    this.noti.createNotiSuccess('Thêm thành công', 'Thông báo');
-                    this.btnClose.nativeElement.click();
-                    this.router
-                      .navigateByUrl('/admin/home', {
-                        skipLocationChange: true,
-                      })
-                      .then(() => this.router.navigate(['/admin/product']));
-                  },
-                });
-            },
-            error: (err) => {
-              this.httpProduct.isLoading.next(false);
-              this.noti.createNotiError(err, 'Thông báo');
-            },
-          });
         },
         error: (err) => {
           this.httpImage.isLoading.next(false);
@@ -168,16 +210,25 @@ export class ProductComponent implements OnInit {
 
   onDataProduct(data: Product) {
     this.title = 'Cập Nhật';
+    let details: string[] = [];
+    for (const item of data.details) {
+      details.push(item.detailId);
+    }
     this.productForm.patchValue({
       productData: {
+        productId: data.productId,
         productCode: data.productCode,
         productName: data.productName,
         productDescription: data.productDescription,
-        productQuantity: data.productQuantity,
+        productQuantity: isNaN(data.productQuantity)
+          ? 0
+          : +data.productQuantity,
         productSize: data.productSize,
         productColor: data.productColor,
         productStatus: data.productStatus ? 'true' : 'false',
         productPrice: data.productPrice,
+        category: data.category.categoryId,
+        detail: details,
       },
     });
     $('#btnAddProduct').trigger('click');

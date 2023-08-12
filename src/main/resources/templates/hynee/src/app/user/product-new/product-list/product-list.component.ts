@@ -33,9 +33,9 @@ export class ProductListComponent implements OnInit, OnDestroy {
     private cartStore: CartStoreService
   ) {}
   ngOnInit(): void {
-    this.router.navigate([], {
-      relativeTo: this.route,
-    });
+    // this.router.navigate([], {
+    //   relativeTo: this.route,
+    // });
     this.page = this.route.snapshot.params['page'];
     this.subscription = this.route.params.subscribe((params: Params) => {
       this.page = params['page'];
@@ -43,7 +43,10 @@ export class ProductListComponent implements OnInit, OnDestroy {
         next: (data) => {
           this.listImages = [];
           this.httpProduct.isLoading.next(false);
-          this.listProduct = data.body.content;
+          this.listProduct = data.body.content.filter(
+            (item) => item.productStatus
+          );
+
           this.numberPage = data.body.totalPages;
           this.listProduct.forEach((element: Product) => {
             this.httpImage.getImageById(element.productId).subscribe({
@@ -60,28 +63,49 @@ export class ProductListComponent implements OnInit, OnDestroy {
         },
       });
     });
+
     this.route.queryParams.subscribe((params: Params) => {
       this.sort = params['sort'];
-      this.httpProduct.getSearchPage(this.page, this.sort).subscribe({
-        next: (data) => {
-          this.listImages = [];
-          this.httpProduct.isLoading.next(false);
-          this.listProduct = data.body.content;
-          this.listProduct.forEach((element: Product) => {
-            this.httpImage.getImageById(element.productId).subscribe({
-              next: (data) => {
-                this.listImages.push(data.body[0]);
-              },
-              complete: () => {
-                for (let i = 0; i < this.listProduct.length; i++) {
-                  this.listProduct[i].image = this.listImages[i];
-                }
-              },
+      const priceFrom = params['priceFrom'];
+      const priceTo = params['priceTo'];
+      const priceGreaterThan = params['priceGreaterThan'];
+      const productSize = params['productSize'];
+      this.httpProduct
+        .getSearchPage(
+          this.page,
+          this.sort,
+          priceFrom,
+          priceTo,
+          priceGreaterThan,
+          productSize
+        )
+        .subscribe({
+          next: (data) => {
+            this.listImages = [];
+            this.numberPage = data.body.totalPages;
+            this.httpProduct.isLoading.next(false);
+            this.listProduct = data.body.content.filter(
+              (item) => item.productStatus
+            );
+            this.listProduct.forEach((element: Product) => {
+              this.httpImage.getImageById(element.productId).subscribe({
+                next: (data) => {
+                  this.listImages.push(data.body[0]);
+                },
+                complete: () => {
+                  for (let i = 0; i < this.listProduct.length; i++) {
+                    this.listProduct[i].image = this.listImages[i];
+                  }
+                },
+              });
             });
-          });
-        },
-      });
+          },
+        });
     });
+  }
+
+  onSearch() {
+    console.log('hi');
   }
 
   addToCart(id: string): void {

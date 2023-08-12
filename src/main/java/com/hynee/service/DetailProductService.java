@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.hynee.entity.Detail;
 import com.hynee.entity.DetailProduct;
 import com.hynee.entity.DetailProductId;
+import com.hynee.entity.Product;
 import com.hynee.repository.CategoryDAO;
 import com.hynee.repository.DetailProductDAO;
 
@@ -38,5 +39,9 @@ public class DetailProductService {
 
 	public void deleteDetail(DetailProductId productId) {
 		this.detailProductDAO.deleteById(productId);
+	}
+
+	public List<DetailProduct> findByDetailProduct(Product product) {
+		return this.detailProductDAO.findByProduct(product);
 	}
 }

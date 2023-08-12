@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject, catchError, take, throwError } from 'rxjs';
 import { Detail } from '../entity/Detail.interface';
 import { DetailProduct } from '../entity/DetailProduct.interface';
+import { DetailProductId } from '../entity/DetailProductId.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -65,14 +66,31 @@ export class HttpDetailService {
       );
   }
 
-  addDetailProduct(detailProData: DetailProduct[]) {
-    console.log(detailProData);
+  addDetailProduct(detailProData: DetailProduct) {
     return this.http.post(
       'http://localhost:8080/admin/detailProduct/add',
       detailProData,
       {
         observe: 'response',
+        params: new HttpParams()
+          .append('productId', detailProData.product.productId)
+          .append('detailId', detailProData.detail.detailId),
       }
     );
+  }
+
+  getDetailProduct(detailProductId: DetailProductId) {
+    return this.http.get<DetailProduct[]>(
+      `http://localhost:8080/admin/detailProduct/${detailProductId.productId}`,
+      {
+        observe: 'response',
+      }
+    );
+  }
+
+  getById(id: string) {
+    return this.http.get<Detail>(`http://localhost:8080/admin/detail/${id}`, {
+      observe: 'response',
+    });
   }
 }
