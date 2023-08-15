@@ -73,7 +73,7 @@ export class ProductDetailComponent implements OnInit {
   }
   onDecreaseQuantity() {
     if (--this.quantity.nativeElement.value <= 0) {
-      this.noti.createNotiError('Không ', 'Thông báo');
+      this.noti.createNotiError('Số lượng không hợp lệ', 'Thông báo');
       this.checkQuantity = true;
     } else if (this.quantity.nativeElement.value > 0) {
       this.checkQuantity = false;
@@ -81,9 +81,13 @@ export class ProductDetailComponent implements OnInit {
   }
 
   onAddToCart(product: Product) {
-    let quantity: number = this.quantity.nativeElement.value;
-    this.cartStore.addToCart(product);
-    // this.cartStore.updateCartItemQuantity(product, quantity);
-    this.router.navigate(['/cart']);
+    let quantity: number = parseInt(this.quantity.nativeElement.value);
+    if (quantity < product.productQuantity) {
+      this.cartStore.addToCart(product);
+      this.cartStore.updateCartItemQuantity(product, quantity);
+      this.router.navigate(['/cart']);
+    } else {
+      this.noti.createNotiError('Số lượng trong kho không đủ', 'Thông báo');
+    }
   }
 }

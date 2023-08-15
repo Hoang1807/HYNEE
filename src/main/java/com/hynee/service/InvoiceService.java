@@ -33,4 +33,8 @@ public class InvoiceService {
     public void deleteInvoice(String invoiceId) {
         invoiceDAO.deleteById(invoiceId);
     }
+    
+    public List<Invoice> findInvoicesByUserPhone(String userPhone) {
+        return invoiceDAO.findByUsersUserPhone(userPhone);
+    }
 }

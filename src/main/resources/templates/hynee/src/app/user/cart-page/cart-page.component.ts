@@ -41,8 +41,12 @@ export class CartPageComponent {
     }
   }
   onIncreaseQuantity(product: Product) {
-    this.cartStore.addToCart(product);
-    this.onTotal();
+    if (product.productQuantity <= product.quantity) {
+      this.noti.createNotiError('Số lượng trong kho không đủ', 'Thông báo');
+    } else {
+      this.cartStore.addToCart(product);
+      this.onTotal();
+    }
   }
   onDecreaseQuantity(product: Product) {
     this.cartStore.decreaseCartItemQuantity(product);
@@ -51,9 +55,13 @@ export class CartPageComponent {
   }
 
   onChangeQuantity(product: Product, event: any) {
-    const value = event.target.value;
-    this.cartStore.updateCartItemQuantity(product, value);
-    this.onTotal();
+    const value: number = +event.target.value;
+    if (product.productQuantity < value) {
+      this.noti.createNotiError('Số lượng trong kho không đủ', 'Thông báo');
+    } else {
+      this.cartStore.updateCartItemQuantity(product, value);
+      this.onTotal();
+    }
   }
   onDeleteProduct(product: Product) {
     this.cartStore.removeFromCart(product);

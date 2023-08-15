@@ -3,6 +3,30 @@
     <div class="row px-xl-5">
         <!-- Shop Sidebar Start -->
         <div class="col-lg-3 col-md-12">
+            <div class="border-bottom mb-4 pb-4">
+                <h5 class="font-weight-semi-bold mb-4">Lọc giới tính</h5>
+                <form>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="radio" name="gender" [routerLink]="[]" [queryParams]="{detailValue:null}"
+                            queryParamsHandling="merge" class="custom-control-input" id="gender-all">
+                        <label class="custom-control-label" for="gender-all">Tất cả</label>
+                        <span class="badge border font-weight-normal">246</span>
+                    </div>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="radio" name="gender" [routerLink]="[]" [queryParams]="{detailValue:'Ladies'}"
+                            queryParamsHandling="merge" class="custom-control-input" id="gender-2">
+                        <label class="custom-control-label" for="gender-2">Nữ</label>
+                        <span class="badge border font-weight-normal">246</span>
+                    </div>
+                    <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
+                        <input type="radio" name="gender" class="custom-control-input" id="gender-3" [routerLink]="[]"
+                            [queryParams]="{detailValue:'Men'}" queryParamsHandling="merge">
+                        <label class="custom-control-label" for="gender-3">Nam</label>
+                        <span class="badge border font-weight-normal">145</span>
+                    </div>
+                </form>
+            </div>
+
             <!-- Price Start -->
             <div class="border-bottom mb-4 pb-4">
                 <h5 class="font-weight-semi-bold mb-4">Lọc theo Giá</h5>
@@ -49,12 +73,12 @@
 
             <!-- Size Start -->
             <div class="mb-5">
-                <h5 class="font-weight-semi-bold mb-4">Lọc theo size-1</h5>
+                <h5 class="font-weight-semi-bold mb-4">Lọc theo size</h5>
                 <form>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">
                         <input type="radio" class="custom-control-input" name="size" [routerLink]="[]"
                             [queryParams]="{'productSize':null}" queryParamsHandling="merge" id="size-all">
-                        <label class="custom-control-label" for="size-all">All Size</label>
+                        <label class="custom-control-label" for="size-all">Tất cả</label>
                         <span class="badge border font-weight-normal">1000</span>
                     </div>
                     <div class="custom-control custom-checkbox d-flex align-items-center justify-content-between mb-3">

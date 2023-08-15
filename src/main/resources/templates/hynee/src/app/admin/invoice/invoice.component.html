@@ -3,42 +3,112 @@
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
         <h1 class="h3 mb-0 text-gray-800">Quản Lý Hóa Đơn</h1>
-        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm" data-toggle="modal"
-            data-target="#form" id="btnAddDetail">
-            <i class="fas fa-plus fa-sm text-white-50"></i>
-            Tạo hóa đơn</a>
 
-        <div class="modal fade" id="form" tabindex="-1">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
+        <div class="modal fade" id="formUpdate" tabindex="-1">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content ">
                     <div class="modal-header border-bottom-0">
-                        <h5 class="modal-title" id="exampleModalLabel" [innerText]="title"></h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Chi Tiết Hóa Đơn</h5>
                         <button type="button" class="close" data-dismiss="modal" #close>
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
+                    <div class="modal-body p-1">
+                        <h6 class="modal-title">Danh sách mặt hàng đã đặt</h6>
+                        <table class="table table-bordered" width="100%" cellspacing="0">
+                            <thead>
+                                <tr>
+                                    <th class="p-2 text-center" scope="col">#</th>
+                                    <th class="p-2 text-center" scope="col">Mã sản phẩm</th>
+                                    <th class="p-2 text-center" scope="col">Tên</th>
+                                    <th class="p-2 text-center" scope="col">Số lượng</th>
+                                    <th class="p-2 text-center" scope="col">Màu</th>
+                                    <th class="p-2 text-center" scope="col">Giá</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let item of listProductBuys;let i = index">
+                                    <th class="p-2 text-center" scope="row" [innerText]="i+1"></th>
+                                    <td class="p-2" [innerText]="item.product.productCode"></td>
+                                    <td class="p-2" [innerText]="item.product.productName"></td>
+                                    <td class="p-2" [innerText]="item.id.invoiceDtQuantity"></td>
+                                    <td class="p-2">
+                                        <span class="rounded-circle btn-color d-block m-auto"
+                                            style="width: 25px;height: 25px;"
+                                            [ngStyle]="{'background-color': item.product.productColor}"></span>
+                                    </td>
+                                    <td class=" p-2" [innerText]="item.id.invoiceDtPrice | currency:'VND'">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="5" class="p-2 text-right font-weight-bold">Tổng Tiền</th>
+                                    <th class="p-2 text-danger" [innerText]="onTotalMoney() |currency:'VND'"></th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                     <form method="post" [formGroup]="invoiceForm" (ngSubmit)="onSubmit()">
-                        <div class="modal-body" formGroupName="detailData">
-                            <input type="hidden" formControlName="detailId">
-                            <div class="form-group">
-                                <input type="text" class="form-control" formControlName="detailName"
-                                    placeholder="Tiêu dề">
-                                <span class="text-danger"
-                                    *ngIf="invoiceForm.get('detailData.detailName').invalid && invoiceForm.get('detailData.detailName').touched">
-                                    <span *ngIf="invoiceForm.get('detailData.detailName').errors['required']">
-                                        Vui lòng nhập Tiêu Đề
-                                    </span>
-                                </span>
+                        <div class="modal-body" formGroupName="invoiceData">
+                            <input type="hidden" formControlName="invoiceId">
+                            <input type="hidden" formControlName="users">
+                            <div class="row">
+                                <div class="col-4">
+                                    <label>Họ tên người đặt</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" readonly
+                                            [value]="invoiceForUser.userFullname" placeholder="Họ tên người nhận">
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <label>Số điện thoại</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" readonly
+                                            [value]="invoiceForUser.userPhone" placeholder="Họ tên người nhận">
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <label>Ngày đặt</label>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" readonly formControlName="invoiceDate"
+                                            placeholder="Họ tên người nhận">
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
-                                <input type="text" class="form-control" formControlName="detailValue"
-                                    placeholder="Nội Dung">
-                                <span class="text-danger"
-                                    *ngIf="invoiceForm.get('detailData.detailValue').invalid && invoiceForm.get('detailData.detailValue').touched">
-                                    <span *ngIf="invoiceForm.get('detailData.detailValue').errors['required']">
-                                        Vui lòng nhập Nội Dung
-                                    </span>
-                                </span>
+                                <label>Địa chỉ</label>
+                                <textarea style="resize: none" type="text" readonly class="form-control"
+                                    formControlName="invoiceAddress" placeholder="Địa chỉ nhận hàng"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>Ghi chú</label>
+                                <textarea style="resize: none" type="text" readonly class="form-control"
+                                    formControlName="invoiceNote" placeholder="Địa chỉ nhận hàng"></textarea>
+                            </div>
+                            <div class="mb-3 d-flex">
+                                <label class="mr-2">Trạng thái thanh toán:</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="pay" value="true"
+                                        formControlName="invoiceStatus">
+                                    <label class="form-check-label" for="pay">Đã thanh toán</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="nopay" value="false"
+                                        formControlName="invoiceStatus">
+                                    <label class="form-check-label" for="nopay">Chưa thanh toán</label>
+                                </div>
+                            </div>
+                            <div class="mb-3 d-flex">
+                                <label class="mr-2">Trạng thái giao hàng:</label>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="ship" value="true"
+                                        formControlName="invoiceShippingStatus">
+                                    <label class="form-check-label" for="ship">Đã giao hàng</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" id="noship" value="false"
+                                        formControlName="invoiceShippingStatus">
+                                    <label class="form-check-label" for="noship">Chưa giao hàng</label>
+                                </div>
                             </div>
                         </div>
                         <div class="modal-footer border-top-0 d-flex justify-content-end">
@@ -50,8 +120,8 @@
         </div>
     </div>
     <div class="row">
-        <div class="m-auto col-xl-8">
-            <app-detail-item></app-detail-item>
+        <div class="m-auto col-xl-10">
+            <app-invoice-item (DataInvoice)="onDataInvoice($event)"></app-invoice-item>
         </div>
     </div>
 </div>

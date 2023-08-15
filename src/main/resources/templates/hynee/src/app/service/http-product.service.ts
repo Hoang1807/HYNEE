@@ -51,7 +51,9 @@ export class HttpProductService {
     priceFrom: number = 0,
     priceTo: number = 0,
     priceGreaterThan: number = 0,
-    productSize: string = ''
+    productSize: string = '',
+    productName: string = '',
+    detailValue: string = ''
   ) {
     this.isLoading.next(true);
     return this.http.get<any>('http://localhost:8080/admin/product/search', {
@@ -61,7 +63,9 @@ export class HttpProductService {
         .append('priceFrom', priceFrom)
         .append('priceTo', priceTo)
         .append('priceGreaterThan', priceGreaterThan)
-        .append('productSize', productSize),
+        .append('productSize', productSize)
+        .append('productName', productName)
+        .append('detailValue', detailValue),
       observe: 'response',
     });
   }

@@ -38,4 +38,8 @@ public class UserService {
 	public void deleteUser(String id) {
 		userDAO.deleteById(id);
 	}
+
+	public Users findUsersByInvoiceId(String invoiceId) {
+		return userDAO.findByInvoicesInvoiceId(invoiceId);
+	}
 }

@@ -33,7 +33,11 @@ export class HttpUserService {
       );
   }
   getAllUsers() {}
-
+  getUserByInvoiceId(invoiceId: string) {
+    return this.http.get<User>(`http://localhost:8080/user/${invoiceId}`, {
+      observe: 'response',
+    });
+  }
   loginUser(userData: User) {
     this.isLoading.next(true);
     return this.http
@@ -55,6 +59,7 @@ export class HttpUserService {
         })
       );
   }
+
   getUsersById(user: User) {}
   updateUser() {}
 }

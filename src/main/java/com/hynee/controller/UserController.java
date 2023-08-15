@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,16 @@ public class UserController {
 	@GetMapping(value = "/all")
 	public ResponseEntity<List<Users>> getAllUser() {
 		return new ResponseEntity(userService.findAllUsers(), HttpStatus.OK);
+	}
+
+	@GetMapping("/{invoiceId}")
+	public ResponseEntity<Users> findUsersByInvoiceId(@PathVariable String invoiceId) {
+		Users user = userService.findUsersByInvoiceId(invoiceId);
+		if (user != null) {
+			return new ResponseEntity<>(user, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 
 	@PostMapping(value = "/login")

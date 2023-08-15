@@ -71,6 +71,7 @@ public class ProductController {
 			@RequestParam(name = "priceFrom", required = false) Integer priceFrom,
 			@RequestParam(name = "productSize", required = false) String productSize,
 			@RequestParam(name = "priceGreaterThan", required = false) Integer priceGreaterThan,
+			@RequestParam(name = "detailValue", required = false) String detailValue,
 			@RequestParam(name = "productName", required = false) String productName) {
 		Pageable pageable = PageRequest.of(page.orElse(0), 9, sort.orElse(true) ? Direction.ASC : Direction.DESC,
 				"productPrice");
@@ -78,21 +79,31 @@ public class ProductController {
 		Page<Product> productPage;
 
 		if (productSize != null && !productSize.isEmpty()) {
-			if ((priceFrom != 0 || priceTo != 0) && priceGreaterThan == 0) {
-				productPage = productService.findByProductSizeAndProductPriceBetween(productSize, priceFrom, priceTo,
-						pageable);
-			} else if (priceGreaterThan != 0) {
-				productPage = productService.findByProductSizeAndProductPriceGreaterThan(productSize, priceGreaterThan,
-						pageable);
+			if ((priceFrom != null && priceFrom != 0) || (priceTo != null && priceTo != 0)) {
+				productPage = productService.findByProductSizeAndProductPriceBetweenAndDetailsDetailValueContaining(
+						productSize, priceFrom, priceTo, detailValue, pageable);
+			} else if (priceGreaterThan != null && priceGreaterThan != 0) {
+				productPage = productService.findByProductSizeAndProductPriceGreaterThanAndDetailsDetailValueContaining(
+						productSize, priceGreaterThan, detailValue, pageable);
 			} else {
-				productPage = productService.findByProductSize(productSize, pageable);
+				productPage = productService.findByProductSizeAndDetailsDetailValueContaining(productSize, detailValue,
+						pageable);
 			}
-		} else if ((priceFrom != 0 || priceTo != 0) && priceGreaterThan == 0) {
-			productPage = productService.findByProductPriceBetween(priceFrom, priceTo, pageable);
-		} else if (priceGreaterThan != 0) {
-			productPage = productService.findByProductPriceGreaterThan(priceGreaterThan, pageable);
+		} else if ((priceFrom != null && priceFrom != 0) || (priceTo != null && priceTo != 0)) {
+			if (priceGreaterThan != null && priceGreaterThan != 0) {
+				productPage = productService.findByProductPriceBetweenAndDetailsDetailValueContaining(priceFrom,
+						priceTo, detailValue, pageable);
+			} else {
+				productPage = productService.findByProductPriceBetweenAndDetailsDetailValueContaining(priceFrom,
+						priceTo, detailValue, pageable);
+			}
+		} else if (priceGreaterThan != null && priceGreaterThan != 0) {
+			productPage = productService.findByProductPriceGreaterThanAndDetailsDetailValueContaining(priceGreaterThan,
+					detailValue, pageable);
 		} else if (productName != null && !productName.isEmpty()) {
 			productPage = productService.findByProductNameContaining(productName, pageable);
+		} else if (detailValue != null && !detailValue.isEmpty()) {
+			productPage = productService.findByDetailsDetailValueContaining(detailValue, pageable);
 		} else {
 			productPage = productService.findPage(pageable);
 		}
