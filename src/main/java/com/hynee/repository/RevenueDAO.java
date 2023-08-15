@@ -12,9 +12,9 @@ import com.hynee.entity.Revenue;
 
 public interface RevenueDAO extends JpaRepository<Revenue, String> {
 	@Procedure(procedureName = "CalculateRevenue")
-	List<Revenue> calculateRevenue(@Param("DateFilter") Date dateFilter, @Param("IntervalType") String intervalType);
+	List<Object[]> calculateRevenue(@Param("DateFilter") Date dateFilter, @Param("IntervalType") String intervalType);
 
 	@Procedure(name = "GetBestSellingProductsByInterval")
-	List<Product> getBestSellingProductsByInterval(@Param("StartDate") String startDate,
-			@Param("EndDate") String endDate, @Param("IntervalType") String intervalType);
+	List<Object[]> getBestSellingProductsByInterval(@Param("StartDate") Date startDate,
+			@Param("EndDate") Date endDate, @Param("IntervalType") String intervalType);
 }

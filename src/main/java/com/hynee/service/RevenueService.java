@@ -17,11 +17,11 @@ public class RevenueService {
 	public RevenueService(RevenueDAO revenueDAO) {
 		this.revenueDAO = revenueDAO;
 	}
-	public List<Revenue> calculateRevenue(Date dateFilter, String intervalType) {
+	public List<Object[]> calculateRevenue(Date dateFilter, String intervalType) {
         return revenueDAO.calculateRevenue(dateFilter, intervalType);
     }
     
-    public List<Product> getBestSellingProductsByInterval(String startDate, String endDate, String intervalType) {
+    public List<Object[]> getBestSellingProductsByInterval(Date startDate, Date endDate, String intervalType) {
         return revenueDAO.getBestSellingProductsByInterval(startDate, endDate, intervalType);
     }
 }
