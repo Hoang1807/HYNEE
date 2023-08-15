@@ -36,15 +36,16 @@ public class RevenueController {
 	@Transactional(readOnly = true)
 	public ResponseEntity<Revenue> calculateRevenue(@RequestParam("dateFilter") String dateFilter,
 			@RequestParam("intervalType") String intervalType) {
+		System.out.println();
 		Revenue revenue = null;
 		if (intervalType.equals("month_year")) {
 			for (Object[] item : revenueService.calculateRevenue(Date.valueOf(dateFilter), intervalType)) {
 				revenue = new Revenue(String.valueOf(item[0]), String.valueOf(item[1]), String.valueOf(item[2]),
 						Long.valueOf(String.valueOf(item[3])));
-			}
+			} 
 		}else if(intervalType.equals("day")) {
 			for (Object[] item : revenueService.calculateRevenue(Date.valueOf(dateFilter), intervalType)) {
-				revenue = new Revenue(String.valueOf(item[0]), String.valueOf(item[1]), String.valueOf(item[2]),null);
+				revenue = new Revenue(String.valueOf(item[0]), String.valueOf(item[1]), null,Long.valueOf(String.valueOf(item[2])));
 			}
 		}
 		if(revenue == null) {
