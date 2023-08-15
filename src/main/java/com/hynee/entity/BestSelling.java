@@ -1,7 +1,5 @@
 package com.hynee.entity;
 
-import java.io.Serializable;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -15,17 +13,14 @@ import lombok.ToString;
 @AllArgsConstructor
 @Data
 @ToString
-public class Revenue {
+public class BestSelling {
 	@Id
-    @Column(name = "IntervalType")
-    private String intervalType;
+    @Column(name = "ProductId")
+    private String productId;
     
-    @Column(name = "MonthNumber")
-    private String monthNumber;
+    @Column(name = "ProductName")
+    private String productName;
     
-    @Column(name = "YearNumber")
-    private String yearNumber;
-    
-    @Column(name = "TotalRevenue")
+    @Column(name = "TotalQuantitySold")
     private Long totalRevenue;
 }

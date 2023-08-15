@@ -1,14 +1,113 @@
-import { AfterViewInit, Component } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { Chart } from 'chart.js';
 import * as $ from 'jquery';
+import { HttpRevenueService } from 'src/app/service/http-revenue.service';
+import { NotificationService } from 'src/app/service/notification.service';
 @Component({
   selector: 'app-statistic',
   templateUrl: './statistic.component.html',
   styleUrls: ['./statistic.component.css'],
 })
-export class StatisticComponent implements AfterViewInit {
+export class StatisticComponent implements AfterViewInit, OnInit {
+  listRevenue: number[] = new Array(12).fill(0);
+  @ViewChild('inputYear') inputYear: ElementRef;
+  chart: Chart;
+  nowDay: string = '';
+  constructor(private httpRevenue: HttpRevenueService) {}
+  ngOnInit(): void {
+    this.onChart();
+    this.onLoadRevenue();
+  }
   ngAfterViewInit(): void {
-    var myChart = new Chart($('#myAreaChart'), {
+    var myPieChart = new Chart($('#myPieChart'), {
+      type: 'doughnut',
+      data: {
+        labels: ['Direct', 'Referral', 'Social'],
+        datasets: [
+          {
+            data: [55, 30, 15],
+            backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
+            hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
+            hoverBorderColor: 'rgba(234, 236, 244, 1)',
+          },
+        ],
+      },
+      options: {
+        maintainAspectRatio: false,
+        tooltips: {
+          backgroundColor: 'rgb(255,255,255)',
+          bodyFontColor: '#858796',
+          borderColor: '#dddfeb',
+          borderWidth: 1,
+          xPadding: 15,
+          yPadding: 15,
+          displayColors: false,
+          caretPadding: 10,
+        },
+        legend: {
+          display: false,
+        },
+        cutoutPercentage: 80,
+      },
+    });
+    this.onLoadRevenue();
+    this.onChangeYear();
+  }
+  onChangeYear() {
+    const month = [
+      '01',
+      '02',
+      '03',
+      '04',
+      '05',
+      '06',
+      '07',
+      '08',
+      '09',
+      '10',
+      '11',
+      '12',
+    ];
+    const valueYear = this.inputYear.nativeElement.value;
+    this.listRevenue = new Array(12).fill(0);
+    month.forEach((element) => {
+      let month_year = `${valueYear}-${element}-13`;
+      this.httpRevenue.calculateRevenue(month_year, 'month_year').subscribe({
+        next: (data) => {
+          const i = parseInt(element);
+          this.listRevenue[i - 1] = data.body.totalRevenue;
+        },
+        complete: () => {
+          this.chart.data.datasets[0].data = this.listRevenue;
+          this.chart.update();
+        },
+      });
+    });
+
+    setTimeout(() => {
+      let flag = true;
+      for (let item of this.listRevenue) {
+        if (item == 0) {
+          flag = true;
+        } else {
+          flag = false;
+          break;
+        }
+      }
+      if (flag) {
+        this.chart.data.datasets[0].data = this.listRevenue;
+        this.chart.update();
+      }
+    }, 500);
+  }
+  onChart() {
+    this.chart = new Chart($('#myAreaChart'), {
       type: 'line',
       data: {
         labels: [
@@ -39,10 +138,7 @@ export class StatisticComponent implements AfterViewInit {
             pointHoverBorderColor: 'rgba(78, 115, 223, 1)',
             pointHitRadius: 10,
             pointBorderWidth: 2,
-            data: [
-              0, 10000, 5000, 15000, 10000, 20000, 15000, 25000, 20000, 30000,
-              25000, 40000,
-            ],
+            data: this.listRevenue,
           },
         ],
       },
@@ -118,37 +214,21 @@ export class StatisticComponent implements AfterViewInit {
         },
       },
     });
+  }
 
-    var myPieChart = new Chart($('#myPieChart'), {
-      type: 'doughnut',
-      data: {
-        labels: ['Direct', 'Referral', 'Social'],
-        datasets: [
-          {
-            data: [55, 30, 15],
-            backgroundColor: ['#4e73df', '#1cc88a', '#36b9cc'],
-            hoverBackgroundColor: ['#2e59d9', '#17a673', '#2c9faf'],
-            hoverBorderColor: 'rgba(234, 236, 244, 1)',
-          },
-        ],
+  onLoadRevenue() {
+    let value: number = 0;
+    const currentDate = new Date();
+    const day = String(currentDate.getDate()).padStart(2, '0');
+    const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Cộng 1 vì tháng trong Date bắt đầu từ 0
+    const year = currentDate.getFullYear();
+    this.nowDay = `${year}-${month}-${day}`;
+    this.httpRevenue.calculateRevenue(this.nowDay, 'day').subscribe({
+      next: (data) => {
+        value = data.body.totalRevenue == null ? 0 : data.body.totalRevenue;
       },
-      options: {
-        maintainAspectRatio: false,
-        tooltips: {
-          backgroundColor: 'rgb(255,255,255)',
-          bodyFontColor: '#858796',
-          borderColor: '#dddfeb',
-          borderWidth: 1,
-          xPadding: 15,
-          yPadding: 15,
-          displayColors: false,
-          caretPadding: 10,
-        },
-        legend: {
-          display: false,
-        },
-        cutoutPercentage: 80,
-      },
+      error: (err) => {},
     });
+    return value;
   }
 }
