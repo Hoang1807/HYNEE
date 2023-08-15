@@ -6,5 +6,5 @@ import com.hynee.entity.Users;
 import com.hynee.service.UserService;
 
 public interface UserDAO extends JpaRepository<Users, String>{
-
+	public Users findByInvoicesInvoiceId(String invoiceId);
 }

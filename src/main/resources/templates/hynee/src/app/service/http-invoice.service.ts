@@ -1,12 +1,13 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Invoice } from '../entity/Invoices.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpInvoiceService {
+  isLoading = new Subject<boolean>();
   private baseUrl: string = 'http://localhost:8080/invoices';
 
   constructor(private http: HttpClient) {}
@@ -18,7 +19,14 @@ export class HttpInvoiceService {
   getAllInvoices() {
     return this.http.get<Invoice[]>(this.baseUrl, { observe: 'response' });
   }
-
+  getInvoiceByUserPhone(userPhone: string) {
+    return this.http.get<Invoice[]>(
+      `${this.baseUrl}/by-user-phone/${userPhone}`,
+      {
+        observe: 'response',
+      }
+    );
+  }
   createInvoice(invoice: Invoice) {
     return this.http.post<Invoice>(this.baseUrl, invoice, {
       observe: 'response',
@@ -26,13 +34,17 @@ export class HttpInvoiceService {
     });
   }
 
-  updateInvoice(
-    invoiceId: string,
-    updatedInvoice: Invoice
-  ): Observable<Invoice> {
+  updateInvoice(invoiceId: string, updatedInvoice: Invoice) {
     return this.http.put<Invoice>(
       `${this.baseUrl}/${invoiceId}`,
-      updatedInvoice
+      updatedInvoice,
+      {
+        observe: 'response',
+        params: new HttpParams().append(
+          'userPhone',
+          updatedInvoice.users.userPhone
+        ),
+      }
     );
   }
 

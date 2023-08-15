@@ -21,4 +21,24 @@ public interface ProductDAO extends JpaRepository<Product, String> {
 	Page<Product> findByProductSizeAndProductPriceGreaterThanEqual(String productSize, int price, Pageable pageable);
 
 	Page<Product> findByProductNameContaining(String productName, Pageable pageable);
+
+	Page<Product> findByDetailsDetailValueContaining(String detailValue, Pageable pageable);
+
+	Page<Product> findByProductSizeAndProductPriceBetweenAndDetailsDetailValueContaining(String productSize,
+			Integer priceFrom, Integer priceTo, String detailValue, Pageable pageable);
+
+	Page<Product> findByProductSizeAndProductPriceBetween(String productSize, Integer priceFrom, Integer priceTo,
+			Pageable pageable);
+
+	Page<Product> findByProductSizeAndProductPriceGreaterThanAndDetailsDetailValueContaining(String productSize,
+			Integer priceGreaterThan, String detailValue, Pageable pageable);
+
+	Page<Product> findByProductSizeAndDetailsDetailValueContaining(String productSize, String detailValue,
+			Pageable pageable);
+
+	Page<Product> findByProductPriceBetweenAndDetailsDetailValueContaining(Integer priceFrom, Integer priceTo,
+			String detailValue, Pageable pageable);
+
+	Page<Product> findByProductPriceGreaterThanAndDetailsDetailValueContaining(Integer priceGreaterThan,
+			String detailValue, Pageable pageable);
 }

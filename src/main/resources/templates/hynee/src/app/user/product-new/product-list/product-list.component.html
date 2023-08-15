@@ -3,9 +3,9 @@
         <div class="d-flex align-items-center justify-content-between mb-4">
             <div>
                 <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Search by name" (change)="onSearch()">
+                    <input type="text" class="form-control" placeholder="Search by name" (change)="onSearch()" #search>
                     <div class="input-group-append">
-                        <button class="input-group-text bg-transparent text-primary">
+                        <button class="input-group-text bg-transparent text-primary" (click)="onSearch()">
                             <i class="fa fa-search"></i>
                         </button>
                     </div>

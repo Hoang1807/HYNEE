@@ -1,4 +1,4 @@
-USE master
+﻿USE master
 CREATE DATABASE HYNEE
 go
 USE HYNEE
@@ -93,3 +93,193 @@ product_id UNIQUEIDENTIFIER REFERENCES PRODUCT(product_id) ON DELETE CASCADE ON 
 detail_id UNIQUEIDENTIFIER REFERENCES DETAIL(detail_id) ON DELETE CASCADE ON UPDATE CASCADE NOT NULL,
 PRIMARY KEY(product_id,detail_id)
 )
+
+GO
+
+/*CREATE OR ALTER PROCEDURE CalculateRevenue
+    @DateFilter DATE,
+    @IntervalType VARCHAR(10) -- "day", "week", "month", "year"
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF @IntervalType = 'day'
+    BEGIN
+        SELECT
+            @IntervalType AS IntervalType,
+            @DateFilter AS DateFilter,
+            SUM(id.invoice_DT_price * id.invoice_DT_quantity) AS TotalRevenue
+        FROM INVOICE i
+        INNER JOIN INVOICE_DETAIL id ON i.invoice_id = id.invoice_id
+        INNER JOIN PRODUCT p ON id.product_id = p.product_id
+        WHERE CONVERT(DATE, i.invoice_date) = @DateFilter;
+    END
+    ELSE IF @IntervalType = 'week'
+    BEGIN
+        SELECT
+            @IntervalType AS IntervalType,
+            DATEPART(WEEK, @DateFilter) AS WeekNumber,
+            SUM(id.invoice_DT_price * id.invoice_DT_quantity) AS TotalRevenue
+        FROM INVOICE i
+        INNER JOIN INVOICE_DETAIL id ON i.invoice_id = id.invoice_id
+        INNER JOIN PRODUCT p ON id.product_id = p.product_id
+        WHERE DATEPART(WEEK, i.invoice_date) = DATEPART(WEEK, @DateFilter)
+            AND DATEPART(YEAR, i.invoice_date) = DATEPART(YEAR, @DateFilter);
+    END
+    ELSE IF @IntervalType = 'month'
+    BEGIN
+        SELECT
+            @IntervalType AS IntervalType,
+            DATEPART(MONTH, @DateFilter) AS MonthNumber,
+            SUM(id.invoice_DT_price * id.invoice_DT_quantity) AS TotalRevenue
+        FROM INVOICE i
+        INNER JOIN INVOICE_DETAIL id ON i.invoice_id = id.invoice_id
+        INNER JOIN PRODUCT p ON id.product_id = p.product_id
+        WHERE DATEPART(MONTH, i.invoice_date) = DATEPART(MONTH, @DateFilter)
+            AND DATEPART(YEAR, i.invoice_date) = DATEPART(YEAR, @DateFilter);
+    END
+    ELSE IF @IntervalType = 'year'
+    BEGIN
+        SELECT
+            @IntervalType AS IntervalType,
+            DATEPART(YEAR, @DateFilter) AS YearNumber,
+            SUM(id.invoice_DT_price * id.invoice_DT_quantity) AS TotalRevenue
+        FROM INVOICE i
+        INNER JOIN INVOICE_DETAIL id ON i.invoice_id = id.invoice_id
+        INNER JOIN PRODUCT p ON id.product_id = p.product_id
+        WHERE DATEPART(YEAR, i.invoice_date) = DATEPART(YEAR, @DateFilter);
+    END
+END;*/
+
+CREATE OR ALTER PROCEDURE CalculateRevenue
+    @DateFilter DATE,
+    @IntervalType VARCHAR(10) -- "day", "month_year", "year"
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF @IntervalType = 'day'
+    BEGIN
+        SELECT
+            @IntervalType AS IntervalType,
+            @DateFilter AS DateFilter,
+            SUM(id.invoice_DT_price * id.invoice_DT_quantity) AS TotalRevenue
+        FROM INVOICE i
+        INNER JOIN INVOICE_DETAIL id ON i.invoice_id = id.invoice_id
+        INNER JOIN PRODUCT p ON id.product_id = p.product_id
+        WHERE CONVERT(DATE, i.invoice_date) = @DateFilter;
+    END
+    ELSE IF @IntervalType = 'month_year'
+    BEGIN
+        SELECT
+            @IntervalType AS IntervalType,
+            DATEPART(MONTH, @DateFilter) AS MonthNumber,
+            DATEPART(YEAR, @DateFilter) AS YearNumber,
+            SUM(id.invoice_DT_price * id.invoice_DT_quantity) AS TotalRevenue
+        FROM INVOICE i
+        INNER JOIN INVOICE_DETAIL id ON i.invoice_id = id.invoice_id
+        INNER JOIN PRODUCT p ON id.product_id = p.product_id
+        WHERE DATEPART(MONTH, CONVERT(DATE, i.invoice_date)) = DATEPART(MONTH, @DateFilter)
+            AND DATEPART(YEAR, CONVERT(DATE, i.invoice_date)) = DATEPART(YEAR, @DateFilter);
+    END
+    ELSE IF @IntervalType = 'year'
+    BEGIN
+        SELECT
+            @IntervalType AS IntervalType,
+            DATEPART(YEAR, @DateFilter) AS YearNumber,
+            SUM(id.invoice_DT_price * id.invoice_DT_quantity) AS TotalRevenue
+        FROM INVOICE i
+        INNER JOIN INVOICE_DETAIL id ON i.invoice_id = id.invoice_id
+        INNER JOIN PRODUCT p ON id.product_id = p.product_id
+        WHERE DATEPART(YEAR, CONVERT(DATE, i.invoice_date)) = DATEPART(YEAR, @DateFilter);
+    END
+END;
+GO
+
+CREATE OR ALTER PROCEDURE GetBestSellingProducts
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT TOP 10
+        p.product_id,
+        p.product_name,
+        SUM(id.invoice_DT_quantity) AS TotalQuantitySold
+    FROM INVOICE_DETAIL id
+    INNER JOIN PRODUCT p ON id.product_id = p.product_id
+    GROUP BY p.product_id, p.product_name
+    ORDER BY TotalQuantitySold DESC;
+END;
+
+GO
+
+CREATE OR ALTER PROCEDURE GetBestSellingProductsByInterval
+    @StartDate DATE,
+    @EndDate DATE,
+    @IntervalType VARCHAR(10) -- "day", "week", "month", "year"
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    IF @IntervalType = 'day'
+    BEGIN
+        SELECT TOP 10
+            p.product_id,
+            p.product_name,
+            SUM(id.invoice_DT_quantity) AS TotalQuantitySold
+        FROM INVOICE_DETAIL id
+        INNER JOIN PRODUCT p ON id.product_id = p.product_id
+        INNER JOIN INVOICE i ON id.invoice_id = i.invoice_id
+        WHERE CONVERT(date,i.invoice_date) >= @StartDate AND CONVERT(date,i.invoice_date) <= @EndDate
+        GROUP BY p.product_id, p.product_name
+        ORDER BY TotalQuantitySold DESC;
+    END
+    ELSE IF @IntervalType = 'week'
+    BEGIN
+        SELECT TOP 10
+            p.product_id,
+            p.product_name,
+            SUM(id.invoice_DT_quantity) AS TotalQuantitySold
+        FROM INVOICE_DETAIL id
+        INNER JOIN PRODUCT p ON id.product_id = p.product_id
+        INNER JOIN INVOICE i ON id.invoice_id = i.invoice_id
+        WHERE DATEPART(WEEK, i.invoice_date) = DATEPART(WEEK, @StartDate)
+            AND DATEPART(YEAR, i.invoice_date) = DATEPART(YEAR, @StartDate)
+        GROUP BY p.product_id, p.product_name
+        ORDER BY TotalQuantitySold DESC;
+    END
+    ELSE IF @IntervalType = 'month'
+    BEGIN
+        SELECT TOP 10
+            p.product_id,
+            p.product_name,
+            SUM(id.invoice_DT_quantity) AS TotalQuantitySold
+        FROM INVOICE_DETAIL id
+        INNER JOIN PRODUCT p ON id.product_id = p.product_id
+        INNER JOIN INVOICE i ON id.invoice_id = i.invoice_id
+        WHERE DATEPART(MONTH, CONVERT(date,i.invoice_date)) = DATEPART(MONTH, @StartDate)
+            AND DATEPART(YEAR, CONVERT(date,i.invoice_date)) = DATEPART(YEAR, @StartDate)
+        GROUP BY p.product_id, p.product_name
+        ORDER BY TotalQuantitySold DESC;
+    END
+    ELSE IF @IntervalType = 'year'
+    BEGIN
+        SELECT TOP 10
+            p.product_id,
+            p.product_name,
+            SUM(id.invoice_DT_quantity) AS TotalQuantitySold
+        FROM INVOICE_DETAIL id
+        INNER JOIN PRODUCT p ON id.product_id = p.product_id
+        INNER JOIN INVOICE i ON id.invoice_id = i.invoice_id
+        WHERE DATEPART(YEAR, CONVERT(date,i.invoice_date)) = DATEPART(YEAR, @StartDate)
+        GROUP BY p.product_id, p.product_name
+        ORDER BY TotalQuantitySold DESC;
+    END
+END;
+
+-- Lấy danh sách 10 sản phẩm bán chạy nhất trong tuần
+DECLARE @StartDate DATE = '2023-08-10'; -- Thay đổi ngày bắt đầu
+DECLARE @EndDate DATE = '2024-08-13'; -- Thay đổi ngày kết thúc
+DECLARE @IntervalType VARCHAR(10) = 'year'; -- Chọn "day", "month_year", "year"
+
+EXEC CalculateRevenue @EndDate,@IntervalType

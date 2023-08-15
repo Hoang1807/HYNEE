@@ -28,8 +28,9 @@ import com.hynee.service.UserService;
 public class InvoiceController {
 	private final InvoiceService invoiceService;
 	private final UserService userService;
+
 	@Autowired
-	public InvoiceController(InvoiceService invoiceService,UserService userService) {
+	public InvoiceController(InvoiceService invoiceService, UserService userService) {
 		this.invoiceService = invoiceService;
 		this.userService = userService;
 	}
@@ -52,15 +53,21 @@ public class InvoiceController {
 		return new ResponseEntity<>(invoices, HttpStatus.OK);
 	}
 
+	@GetMapping("/by-user-phone/{userPhone}")
+	public ResponseEntity<List<Invoice>> findInvoicesByUserPhone(@PathVariable String userPhone) {
+		List<Invoice> invoices = invoiceService.findInvoicesByUserPhone(userPhone);
+		return new ResponseEntity<>(invoices, HttpStatus.OK);
+	}
+
 	// Create a new invoice
 	@PostMapping
-	public ResponseEntity<Invoice> createInvoice(@RequestBody Invoice invoice,@RequestParam String userPhone) {
+	public ResponseEntity<Invoice> createInvoice(@RequestBody Invoice invoice, @RequestParam String userPhone) {
 		UUID uuid = UUID.randomUUID();
 		invoice.setInvoiceId(uuid.toString());
-		
+
 		Users user = userService.findById(userPhone);
 		invoice.setUsers(user);
-		
+
 		String invoiceId = invoice.getInvoiceId();
 		Invoice existingInvoice = invoiceService.getInvoiceById(invoiceId);
 		if (existingInvoice != null) {
@@ -73,7 +80,11 @@ public class InvoiceController {
 
 	// Update an existing invoice
 	@PutMapping("/{invoiceId}")
-	public ResponseEntity<Invoice> updateInvoice(@PathVariable String invoiceId, @RequestBody Invoice updatedInvoice) {
+	public ResponseEntity<Invoice> updateInvoice(@PathVariable String invoiceId, @RequestBody Invoice updatedInvoice,
+			@RequestParam(value = "userPhone") String userPhone) {
+		Users user = userService.findById(userPhone);
+		updatedInvoice.setUsers(user);
+
 		Invoice existingInvoice = invoiceService.getInvoiceById(invoiceId);
 		if (existingInvoice != null) {
 			updatedInvoice.setInvoiceId(invoiceId);

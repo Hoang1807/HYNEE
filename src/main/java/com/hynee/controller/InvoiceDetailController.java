@@ -33,7 +33,12 @@ public class InvoiceDetailController {
 	public List<InvoiceDetail> getAllInvoiceDetails() {
 		return invoiceDetailService.getAllInvoiceDetails();
 	}
-
+  
+	@GetMapping("/{invoiceId}")
+    public List<InvoiceDetail> findInvoiceDetailsByInvoiceId(@PathVariable String invoiceId) {
+        return invoiceDetailService.findInvoiceDetailsByInvoiceId(invoiceId);
+    }
+	
 	@GetMapping("/{invoiceId}/{productId}/{invoiceDtQuantity}")
 	public InvoiceDetail getInvoiceDetailById(@PathVariable String invoiceId, @PathVariable String productId,
 			@PathVariable int invoiceDtQuantity) {

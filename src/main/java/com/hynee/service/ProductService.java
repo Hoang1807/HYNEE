@@ -72,4 +72,38 @@ public class ProductService {
 	public Page<Product> findByProductNameContaining(String productName, Pageable pageable) {
 		return productDAO.findByProductNameContaining(productName, pageable);
 	}
+
+	public Page<Product> findByDetailsDetailValueContaining(String detailValue, Pageable pageable) {
+		return productDAO.findByDetailsDetailValueContaining(detailValue, pageable);
+	}
+
+	public Page<Product> findByProductSizeAndProductPriceBetweenAndDetailsDetailValueContaining(String productSize,
+			Integer priceFrom, Integer priceTo, String detailValue, Pageable pageable) {
+		return productDAO.findByProductSizeAndProductPriceBetweenAndDetailsDetailValueContaining(productSize, priceFrom,
+				priceTo, detailValue, pageable);
+	}
+
+	public Page<Product> findByProductSizeAndProductPriceGreaterThanAndDetailsDetailValueContaining(String productSize,
+			Integer priceGreaterThan, String detailValue, Pageable pageable) {
+		return productDAO.findByProductSizeAndProductPriceGreaterThanAndDetailsDetailValueContaining(productSize,
+				priceGreaterThan, detailValue, pageable);
+	}
+
+	public Page<Product> findByProductSizeAndDetailsDetailValueContaining(String productSize, String detailValue,
+			Pageable pageable) {
+		return productDAO.findByProductSizeAndDetailsDetailValueContaining(productSize, detailValue, pageable);
+	}
+
+	public Page<Product> findByProductPriceBetweenAndDetailsDetailValueContaining(Integer priceFrom, Integer priceTo,
+			String detailValue, Pageable pageable) {
+		return productDAO.findByProductPriceBetweenAndDetailsDetailValueContaining(priceFrom, priceTo, detailValue,
+				pageable);
+	}
+
+	public Page<Product> findByProductPriceGreaterThanAndDetailsDetailValueContaining(Integer priceGreaterThan,
+			String detailValue, Pageable pageable) {
+		return productDAO.findByProductPriceGreaterThanAndDetailsDetailValueContaining(priceGreaterThan, detailValue,
+				pageable);
+	}
+
 }

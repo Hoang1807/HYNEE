@@ -37,4 +37,7 @@ public class InvoiceDetailService {
 	public InvoiceDetail updateInvoiceDetail(InvoiceDetail invoiceDetail) {
 		return invoiceDetailDAO.save(invoiceDetail);
 	}
+	public List<InvoiceDetail> findInvoiceDetailsByInvoiceId(String invoiceId) {
+        return invoiceDetailDAO.findById_InvoiceId(invoiceId);
+    }
 }

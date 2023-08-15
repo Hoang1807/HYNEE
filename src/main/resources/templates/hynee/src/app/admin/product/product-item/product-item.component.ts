@@ -57,9 +57,7 @@ export class ProductItemComponent {
           title: 'Màu',
           data: 'productColor',
           render: function (data, type, row) {
-            return data === true
-              ? '<span class="glyphicon glyphicon-ok">${}</span>'
-              : '<span class="glyphicon glyphicon-remove">as</span>';
+            return `<span class="rounded-circle btn-color d-block m-auto" style="width: 25px;height: 25px;background-color:${data}"></span>`;
           },
         },
         {
@@ -69,6 +67,9 @@ export class ProductItemComponent {
         {
           title: 'Trạng thái',
           data: 'productStatus',
+          render: function (data) {
+            return data === true ? 'Kinh doanh' : 'Ngừng kinh doanh';
+          },
         },
         {
           title: 'Loại',
