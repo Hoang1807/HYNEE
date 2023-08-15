@@ -163,7 +163,7 @@ BEGIN
         SELECT
             @IntervalType AS IntervalType,
             @DateFilter AS DateFilter,
-            SUM(id.invoice_DT_price * id.invoice_DT_quantity) AS TotalRevenue
+            SUM(p.product_price * id.invoice_DT_quantity) AS TotalRevenue
         FROM INVOICE i
         INNER JOIN INVOICE_DETAIL id ON i.invoice_id = id.invoice_id
         INNER JOIN PRODUCT p ON id.product_id = p.product_id
@@ -175,7 +175,7 @@ BEGIN
             @IntervalType AS IntervalType,
             DATEPART(MONTH, @DateFilter) AS MonthNumber,
             DATEPART(YEAR, @DateFilter) AS YearNumber,
-            SUM(id.invoice_DT_price * id.invoice_DT_quantity) AS TotalRevenue
+            SUM(p.product_price * id.invoice_DT_quantity) AS TotalRevenue
         FROM INVOICE i
         INNER JOIN INVOICE_DETAIL id ON i.invoice_id = id.invoice_id
         INNER JOIN PRODUCT p ON id.product_id = p.product_id
@@ -187,7 +187,7 @@ BEGIN
         SELECT
             @IntervalType AS IntervalType,
             DATEPART(YEAR, @DateFilter) AS YearNumber,
-            SUM(id.invoice_DT_price * id.invoice_DT_quantity) AS TotalRevenue
+            SUM(p.product_price * id.invoice_DT_quantity) AS TotalRevenue
         FROM INVOICE i
         INNER JOIN INVOICE_DETAIL id ON i.invoice_id = id.invoice_id
         INNER JOIN PRODUCT p ON id.product_id = p.product_id

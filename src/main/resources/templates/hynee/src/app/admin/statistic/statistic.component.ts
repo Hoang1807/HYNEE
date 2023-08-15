@@ -19,6 +19,7 @@ export class StatisticComponent implements AfterViewInit, OnInit {
   @ViewChild('inputYear') inputYear: ElementRef;
   chart: Chart;
   nowDay: string = '';
+  sumDay: number = 0;
   constructor(private httpRevenue: HttpRevenueService) {}
   ngOnInit(): void {
     this.onChart();
@@ -226,9 +227,10 @@ export class StatisticComponent implements AfterViewInit, OnInit {
     this.httpRevenue.calculateRevenue(this.nowDay, 'day').subscribe({
       next: (data) => {
         value = data.body.totalRevenue == null ? 0 : data.body.totalRevenue;
+        this.sumDay =  value;
       },
       error: (err) => {},
     });
-    return value;
+    
   }
 }

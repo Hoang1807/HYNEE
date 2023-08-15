@@ -12,6 +12,7 @@ export class HttpRevenueService {
 
   constructor(private http: HttpClient) {}
   calculateRevenue(dateFilter: string, intervalType: string) {
+    console.log(dateFilter,intervalType);
     const params = new HttpParams()
       .set('dateFilter', dateFilter)
       .set('intervalType', intervalType);
